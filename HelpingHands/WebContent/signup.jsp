@@ -14,48 +14,75 @@
 <body bgcolor="lightgrey">
 <c:import url="navbar.jsp"></c:import> 
 <h2 class="text-center">Sign-Up Page</h2>
-<form class="form-horizontal">
+<form action="SignUpServlet" method="post" class="form-horizontal">
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-4">
-      <input type="email" class="form-control" id="email" placeholder="Email">
+      <input type="email" class="form-control" id="email" placeholder="Email" required="required" value="${email}">
     </div>
   </div>
   <div class="form-group">
     <label for="password" class="col-sm-2 control-label">Password</label>
     <div class="col-sm-2">
-      <input type="password" class="form-control" id="password" placeholder="Password">
+      <input type="password" class="form-control" id="password" placeholder="Password" required="required">
     </div>
   </div>
-
+	<div class="form-group">
+    <label for="password" class="col-sm-2 control-label">Confirm Password</label>
+    <div class="col-sm-2">
+      <input type="password" class="form-control" id="password1" placeholder="Confirm Password" required="required">
+    </div>
+  </div>
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" id="name" placeholder="Name">
+      <input type="text" class="form-control" id="name" placeholder="Name" required="required" value="${name}">
     </div>
   </div>
   <div class="form-group">
     <label for="delivery" class="col-sm-2 control-label">Delivery</label>
-    <div class="col-sm-5">
-      <input type="text" class="form-control" id="delivery" placeholder="13031 scofield farms dr">
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="delivery" placeholder="13031 scofield farms dr" required="required" value="${delivery}">
     </div>
   </div>
   <div class="form-group">
     <label for="city" class="col-sm-2 control-label">City</label>
     <div class="col-sm-3">
-      <input type="text" class="form-control" id="city" placeholder="Austin">
+      <input type="text" class="form-control" id="city" placeholder="Austin" required="required" value="${city}">
     </div>
   </div>
   <div class="form-group">
     <label for="state" class="col-sm-2 control-label">State</label>
     <div class="col-sm-1">
-      <input type="text" class="form-control" id="state" placeholder="TX">
+      <input type="text" class="form-control" id="state" placeholder="TX" required="required" value="${state}">
     </div>
   </div>
   <div class="form-group">
     <label for="country" class="col-sm-2 control-label">Country</label>
     <div class="col-sm-1">
-      <input type="text" class="form-control" id="country" placeholder="USA">
+      <input type="text" class="form-control" id="country" placeholder="USA" required="required" value="${country}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="country" class="col-sm-2 control-label">Work Phone</label>
+    <div class="row">
+    	<div class="col-xs-1">
+      		<input type="text" class="form-control" id="phonearea" placeholder="NNN" value="${phonearea}" size="3" maxlength="3">
+		</div>      		
+    	<div class="col-xs-2">
+      		<input type="text" class="form-control" id="phonenumber" placeholder="NNNNNNN" value="${phonenumber}" size="7" maxlength="7">
+		</div>      		
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="country" class="col-sm-2 control-label">Mobile Phone</label>
+    <div class="row">
+    	<div class="col-xs-1">
+      		<input type="text" class="form-control" id="mobilearea" placeholder="NNN" value="${mobilearea}" size="3" maxlength="3">
+		</div>      		
+    	<div class="col-xs-2">
+      		<input type="text" class="form-control" id="mobilenumber" placeholder="NNNNNNN" value="${mobilenumber}" size="7" maxlength="7">
+		</div>      		
     </div>
   </div>
   <div class="form-group">
@@ -63,27 +90,27 @@
     <div class="col-sm-offset-2 col-sm-10">
       <div class="checkbox">
         <label>
-          <input type="checkbox"> To Donate
+          <input type="checkbox" id="todonate"> To Donate
         </label>
         <br>
         <label>
-          <input type="checkbox"> To apply for help
+          <input type="checkbox" id="applyforhelp"> To apply for help
         </label>
         <br>
         <label>
-          <input type="checkbox"> To Volunteer
+          <input type="checkbox" id="tovolunteer"> To Volunteer
         </label>
       </div>
     </div>
   </div>
 	
-
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Save</button>
-      <a class="btn btn-default" href="#" role="button">Clear</a>
+      <input type="submit" value="Sign-Up" id="submit" name="Sign Up" class="btn btn-default">
+      <input type="reset"  value="Clear" id="Clear" name="Clear" class="btn btn-default">
     </div>
   </div>
+  <input type="hidden" class="form-control" id="action" value="SIGNUP">
 </form>
 <myTags:Footer/>
 </body>

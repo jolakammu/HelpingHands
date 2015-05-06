@@ -15,17 +15,20 @@
 	<c:import url="navbar.jsp"></c:import> 
 	<h2>Sign-in</h2>
 
-<form class="form-horizontal">
+<form action="LoginServlet" method="post" class="form-horizontal">
+  <c:if test="${not empty error}">
+  	<div class="alert alert-danger" role="alert">${error }</div>
+  </c:if>	
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-5">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email" maxlength="256" required="required">
+      <input type="email" class="form-control" id="email"  name="email" placeholder="Email" maxlength="254" required="required" value="${email}">
     </div>
   </div>
   <div class="form-group">
     <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
     <div class="col-sm-3">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password" maxlength="32" required="required">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password" maxlength="8" required="required">
     </div>
   </div>
   <div class="form-group">
@@ -40,8 +43,8 @@
   
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Sign in</button>
-      <a class="btn btn-default" href="#" role="button">Clear</a>
+      <input type="submit" value="Sign In" id="submit" name="Sign In" class="btn btn-default">
+      <input type="reset"  value="Clear" id="Clear" name="Clear" class="btn btn-default">
     </div>
   </div>
   
