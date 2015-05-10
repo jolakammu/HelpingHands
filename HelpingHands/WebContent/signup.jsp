@@ -17,12 +17,12 @@
 
 <form action=SignupServlet method="post" class="form-horizontal">
   <c:if test="${not empty error}">
-  	<div class="alert alert-danger" role="alert">${error }</div>
+  	<div class="alert alert-danger" role="alert">${error}</div>
   </c:if>	
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-4">
-      <input type="email" class="form-control" id="email"  name="email" placeholder="Email" maxlength="254" required="required" value="${email}">
+      <input type="email" class="form-control" id="email"  placeholder="Email" maxlength="254" required="required" value="${email}">
     </div>
   </div>
   <div class="form-group">
@@ -100,8 +100,7 @@
         </label>
       </div>
     </div>
-  </div>
-	
+  </div>	
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" value="Sign-Up" id="submit" name="Sign Up" class="btn btn-default">

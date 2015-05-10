@@ -70,7 +70,7 @@ public class UsersManager {
 			Connection connection;
 			connection = ds.getConnection();
 
-			PreparedStatement ps = connection.prepareStatement("select Distinct USER_ID,EMAIL_TXT,NAME, from SE_USER where EMAIL_TXT = ?");
+			PreparedStatement ps = connection.prepareStatement("select Distinct USER_ID,EMAIL_TXT,NAME from SE_USER where EMAIL_TXT = ?");
 			ps.setString(1, email);
 			ResultSet resultSet = ps.executeQuery();
 
