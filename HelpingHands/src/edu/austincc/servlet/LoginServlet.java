@@ -52,10 +52,10 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		String url = "/signin.jsp";	
-		String password = request.getParameter("password") ;
 		String email = request.getParameter("email");
+		String password = request.getParameter("password") ;		
 		String error = null;	
-		User validateUser = new UsersManager(ds).getUserForID(email, password);
+		User validateUser = new UsersManager(ds).getUser(email, password);
 
 		if (validateUser != null) {
 				request.setAttribute("user", validateUser);

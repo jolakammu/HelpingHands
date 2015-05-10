@@ -30,13 +30,13 @@
  <ul class="nav navbar-nav navbar-right">
         
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">more... <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="siteindex.jsp">FAQs</a></li>
+            <li><a href="siteindex.jsp">Site Index</a></li>
+            <li><a href="#">Contact us</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="#">About</a></li>
           </ul>
         </li>
       </ul>      
@@ -48,8 +48,6 @@
 		<c:if test="${isLoggedIn == true }">
 			<li><a href="LogoutServlet">Sign-Out</a></li>	
 		</c:if>			
-        <li><a href="siteindex.jsp">FAQs</a></li>
-        <li><a href="siteindex.jsp">Site Index</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

@@ -1,6 +1,5 @@
 package edu.austincc.db;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,113 +25,7 @@ public class UsersManager {
 		this.ds = ds;
 	}
 
-	public int addUser(User user) {
-		// TODO Auto-generated method stub
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		int id = 0;
-		try {
-			Connection connection;
-			connection = ds.getConnection();
-			ps = connection.prepareStatement("select Max(ID) + 1 as ID from app.SE_USER");
-			Date date = new java.sql.Date(3000-12-31);
-			
-			ResultSet resultSet = ps.executeQuery();
-			while (resultSet.next()) {
-				id = Integer.parseInt(resultSet.getString("ID"));
-			}
-			ps = connection.prepareStatement("insert into app.SE_USER(ID,EMAIL_TXT,NAME,PASSWORD_TXT,PASSWORD_EXPIRY_DT,ROLE_CD) values (?,?,?,?,?,?)");
-			ps.setInt(1, id);
-			ps.setString(2, user.getEmail());	
-			ps.setString(3, user.getName());
-			ps.setString(4, user.getPassword());
-			ps.setDate(5,(java.sql.Date) date);
-			ps.setString(6, user.getRole());
-
-			
-			ps.executeUpdate();
-			ps.close();
-			connection.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-    	return id;
-	}	
-	/*
-	public ArrayList<User> getUsers() {
-		ArrayList<User> users = new ArrayList<>();
-
-		try {
-			Connection connection;
-			connection = ds.getConnection();
-
-			PreparedStatement ps = connection.prepareStatement("select ID, UUID, NAME, PASSWORD, EMAIL from ACC_USER");
-			ResultSet resultSet = ps.executeQuery();
-
-			while (resultSet.next()) {
-				users.add(new User( resultSet.getString("uuid"),
-									resultSet.getString("name"),
-									resultSet.getString("password"),
-									resultSet.getString("email")));
-			}
-
-			resultSet.close();
-			ps.close();
-			connection.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return users;
-	}
-
-	*/
-/*
-	public boolean addUser(User aUser)  {
-		// TODO - Put the user in the user db
-		// FIXME - This has a bug
-
-		// Example with data from SQL Script
-		// insert into users (name, password) values ('sam', 'abcd');
-		boolean added = false;
-		try {
-			Connection connection;
-			connection = ds.getConnection();
-
-			String uname = aUser.getName();
-			String upass = aUser.getPassword();
-			String uemail = aUser.getEmail();
-			String uUUID = aUser.getID().toString();
-			Calendar rightNow = Calendar.getInstance();
-			long id = rightNow.getTimeInMillis();
-			
-			PreparedStatement prepStatement = connection.prepareStatement("insert into ACC_USER (id, uuid, name, password, email) values (?, ?, ?, ?, ?)");
-
-			prepStatement.setLong(1, id);
-			prepStatement.setString(2, uUUID);
-			prepStatement.setString(3, uname);
-			prepStatement.setString(4, upass);
-			prepStatement.setString(5, uemail);
-			
-
-			prepStatement.execute();
-
-
-			prepStatement.close();
-			connection.close();
-
-			added = true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return added;
-	}
-*/
-	public User getUserForID(String email, String password) {
+	public User getUser(String email, String password) {
 		
 		User validateUser = null;
 
@@ -140,7 +33,7 @@ public class UsersManager {
 			Connection connection;
 			connection = ds.getConnection();
 
-			PreparedStatement ps = connection.prepareStatement("select ID,EMAIL_TXT,NAME,PASSWORD_TXT,PASSWORD_EXPIRY_DT,ROLE_CD from SE_USER where EMAIL_TXT = ? and PASSWORD_TXT = ?");
+			PreparedStatement ps = connection.prepareStatement("select USER_ID,EMAIL_TXT,NAME,PASSWORD_EXPIRY_DT,ROLE_CD from SE_USER where EMAIL_TXT = ? and PASSWORD_TXT = ?");
 			ps.setString(1, email);
 			ps.setString(2, password);
 			ResultSet resultSet = ps.executeQuery();
@@ -150,7 +43,7 @@ public class UsersManager {
 				//String dateString = resultSet.getString("PASSWORD_EXPIRY_DT");
 				//Date passwordExpiryDate = df.parse(dateString);
 				
-				validateUser = new User( Integer.parseInt(resultSet.getString("ID")),
+				validateUser = new User( Integer.parseInt(resultSet.getString("USER_ID")),
 									resultSet.getString("EMAIL_TXT"),
 									resultSet.getString("NAME"),
 									resultSet.getString("ROLE_CD")
@@ -168,6 +61,106 @@ public class UsersManager {
 
 		return validateUser;
 	}
-
 	
+	public User getUser(String email) {
+		
+		User validateUser = null;
+
+		try {
+			Connection connection;
+			connection = ds.getConnection();
+
+			PreparedStatement ps = connection.prepareStatement("select Distinct USER_ID,EMAIL_TXT,NAME, from SE_USER where EMAIL_TXT = ?");
+			ps.setString(1, email);
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				//DateFormat df = new SimpleDateFormat("MM/DD/YYYY");
+				//String dateString = resultSet.getString("PASSWORD_EXPIRY_DT");
+				//Date passwordExpiryDate = df.parse(dateString);
+				
+				validateUser = new User( Integer.parseInt(resultSet.getString("USER_ID")),
+									resultSet.getString("EMAIL_TXT"),
+									resultSet.getString("NAME"),
+									resultSet.getString("ROLE_CD")
+									
+						);
+			}
+
+			resultSet.close();
+			ps.close();
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return validateUser;
+	}
+	
+	public int addUser(User user, int addressId, int elecCommuId) {
+		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int userId = 0;
+		try {
+			Connection connection;
+			connection = ds.getConnection();
+			ps = connection.prepareStatement("select Max(USER_ID) + 1 as USER_ID from app.SE_USER");
+			Date date = new java.sql.Date(3000-12-31);
+			
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				userId = Integer.parseInt(resultSet.getString("USER_ID"));
+			}
+			
+			ps = connection.prepareStatement("insert into app.SE_USER(USER_ID,EMAIL_TXT,NAME,PASSWORD_TXT,PASSWORD_EXPIRY_DT,ROLE_CD,ADDRESS_ID,ELEC_COMMMU_ID) values (?,?,?,?,?,?,?,?)");
+			ps.setInt(1, userId);
+			ps.setString(2, user.getEmail());	
+			ps.setString(3, user.getName());
+			ps.setString(4, user.getPassword());
+			ps.setDate(5,(java.sql.Date) date);
+			ps.setString(6, user.getRole());
+			ps.setInt(7, addressId);
+			ps.setInt(8, elecCommuId);
+
+			
+			ps.executeUpdate();
+			ps.close();
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+    	return userId;
+	}	
+
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			Connection connection;
+			connection = ds.getConnection();
+			Date date = new java.sql.Date(3000-12-31);
+			
+			ps = connection.prepareStatement("Update app.SE_USER set EMAIL_TXT= ?, NAME = ?, PASSWORD_TXT=?, PASSWORD_EXPIRY_DT=?,ROLE_CD=?, ADDRESS_ID=?,ELEC_COMMU_ID=? where USER_ID = ?");
+			ps.setString(1, user.getEmail());	
+			ps.setString(2, user.getName());
+			ps.setString(3, user.getPassword());
+			ps.setDate(4,(java.sql.Date) date);
+			ps.setString(5, user.getRole());
+			ps.setInt(6, user.getUserId());
+			ps.setInt(7, user.getAddressId());
+			ps.setInt(8, user.getElecCommuId());
+			ps.executeUpdate();
+			ps.close();
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}	
+
 }

@@ -14,11 +14,15 @@
 <body bgcolor="lightgrey">
 <c:import url="navbar.jsp"></c:import> 
 <h2 class="text-center">Sign-Up Page</h2>
-<form action="SignUpServlet" method="post" class="form-horizontal">
+
+<form action=SignupServlet method="post" class="form-horizontal">
+  <c:if test="${not empty error}">
+  	<div class="alert alert-danger" role="alert">${error }</div>
+  </c:if>	
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-4">
-      <input type="email" class="form-control" id="email" placeholder="Email" required="required" value="${email}">
+      <input type="email" class="form-control" id="email"  name="email" placeholder="Email" maxlength="254" required="required" value="${email}">
     </div>
   </div>
   <div class="form-group">
@@ -66,22 +70,16 @@
   <div class="form-group">
     <label for="country" class="col-sm-2 control-label">Work Phone</label>
     <div class="row">
-    	<div class="col-xs-1">
-      		<input type="text" class="form-control" id="phonearea" placeholder="NNN" value="${phonearea}" size="3" maxlength="3">
-		</div>      		
     	<div class="col-xs-2">
-      		<input type="text" class="form-control" id="phonenumber" placeholder="NNNNNNN" value="${phonenumber}" size="7" maxlength="7">
+      		<input type="tel" class="form-control" id="phonenumber" placeholder="NNNNNNNNNN" value="${phonearea}" size="10" maxlength="10">
 		</div>      		
     </div>
   </div>
   <div class="form-group">
     <label for="country" class="col-sm-2 control-label">Mobile Phone</label>
     <div class="row">
-    	<div class="col-xs-1">
-      		<input type="text" class="form-control" id="mobilearea" placeholder="NNN" value="${mobilearea}" size="3" maxlength="3">
-		</div>      		
     	<div class="col-xs-2">
-      		<input type="text" class="form-control" id="mobilenumber" placeholder="NNNNNNN" value="${mobilenumber}" size="7" maxlength="7">
+      		<input type="tel" class="form-control" id="mobilenumber" placeholder="NNNNNNNNNN" value="${mobilenumber}" size="10" maxlength="10">
 		</div>      		
     </div>
   </div>
