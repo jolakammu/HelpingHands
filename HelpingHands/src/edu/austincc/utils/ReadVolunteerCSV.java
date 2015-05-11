@@ -5,17 +5,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import edu.austincc.domain.VolunteerCSV;
 import edu.austincc.domain.VolunteerItems;
 
 public class ReadVolunteerCSV {
 	
-	public ArrayList<VolunteerItems> readVolunteerItems (String fileName, String delimiter) {
+	public ArrayList<VolunteerCSV> readVolunteerItems (String fileName, String delimiter) {
 		
 		BufferedReader bufferedReaderr = null;
 		FileReader fileReader = null;
 		String data = "";
-		ArrayList<VolunteerItems> volunteerItemsArray = new ArrayList<VolunteerItems>(); 
+		ArrayList<VolunteerCSV> volunteerItemsArray = new ArrayList<VolunteerCSV>(); 
 	 
 		try {
 	 
@@ -25,7 +27,8 @@ public class ReadVolunteerCSV {
 	 
 			        // use comma as separator
 				String[] stringData = data.split(delimiter);
-	 
+				VolunteerCSV volunteerCSV = new VolunteerCSV(stringData[0],stringData[1],stringData[2],stringData[3],stringData[4],stringData[5],stringData[6],stringData[7],stringData[8],stringData[9],stringData[10],stringData[11]);
+				volunteerItemsArray.add(volunteerCSV);
 			}
 	 
 		} catch (FileNotFoundException e) {

@@ -17,9 +17,16 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.jsp">Home<span class="sr-only">(current)</span></a></li>
-        <li><a href="donate.jsp">Donate</a></li>
-        <li><a href="volunteer.jsp">Volunteer</a></li>
-        <li><a href="applyforhelp.jsp">Apply for help</a></li>
+        <!-- <li><a href="donate.jsp">Donate</a></li> -->
+        <c:choose>
+        	<c:when test="${role == 'ADMIN'}">
+        		<li><a href="volunteering.jsp">Volunteering List</a></li>
+        	</c:when>
+        	<c:otherwise>
+        		<li><a href="volunteer.jsp">Volunteering List</a></li>
+			</c:otherwise>
+		</c:choose>			        		 		
+        <!-- <li><a href="applyforhelp.jsp">Apply for help</a></li> -->
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -27,8 +34,18 @@
         </div>
         <button type="submit" class="btn btn-default">Search Site</button>
       </form>
- <ul class="nav navbar-nav navbar-right">
-        
+      <c:if test="${role == 'ADMIN'}">
+ 	  <ul class="nav navbar-nav navbar-right">        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Utilities<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="volunteerCSV.jsp">Upload Volunteering CSV</a></li>
+            <li><a href="siteindex.jsp">ore..</a></li>
+          </ul>
+        </li>
+      </ul>      
+      </c:if>
+ 	  <ul class="nav navbar-nav navbar-right">        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">more... <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">

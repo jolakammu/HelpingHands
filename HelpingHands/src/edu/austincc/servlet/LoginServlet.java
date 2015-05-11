@@ -63,6 +63,7 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("isLoggedIn", true); 
 				session.setAttribute("userName", validateUser.getName());
+				session.setAttribute("role", validateUser.getRole());
 				url = "/index.jsp";
 		} else {
 			

@@ -15,7 +15,7 @@
 	<c:import url="navbar.jsp"></c:import> 
 	<h2>Sign-in</h2>
 
-<form action="SignupServlet" method="post" class="form-horizontal">
+<form action="LoginServlet" method="post" class="form-horizontal">
   <c:if test="${not empty error}">
   	<div class="alert alert-danger" role="alert">${error }</div>
   </c:if>	
