@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import edu.austincc.db.AddressManager;
+import edu.austincc.db.ElecCommuManager;
 import edu.austincc.db.UsersManager;
+import edu.austincc.domain.Address;
+import edu.austincc.domain.ElecCommu;
 import edu.austincc.domain.User;
 
 /**
@@ -50,7 +54,6 @@ public class SignupSaveServlet extends HttpServlet {
 		
 		String url = "/signup.jsp";	
 		String email = request.getParameter("email");
-		//String email = request.getParameter("email");
 		
 		String password  = request.getParameter("password") ;
 		String password1 = request.getParameter("password1") ;
@@ -58,8 +61,9 @@ public class SignupSaveServlet extends HttpServlet {
 		String delivery = request.getParameter("delivery") ;
 		String city  = request.getParameter("city") ;
 		String state = request.getParameter("state") ;
+		String country = request.getParameter("country") ;
+		String zip = request.getParameter("zip") ;
 		String phonenumber  = request.getParameter("phonenumber") ;
-		String mobilenumber = request.getParameter("mobilenumber") ;
 		String todonate  = request.getParameter("todonate") ;
 		String applyforhelp = request.getParameter("applyforhelp") ;
 		String tovolunteer = request.getParameter("tovolunteer") ;
@@ -67,8 +71,21 @@ public class SignupSaveServlet extends HttpServlet {
 		String error = null;	
 		User validateUser = new UsersManager(ds).getUser(email);
 		
-		if (validateUser != null) {
+		if (validateUser == null) {
+			Address address = new Address(0, delivery, city, state, country, zip);
+			int addressId = new AddressManager(ds).addAddress(address);
 			
+			ElecCommu phone = new ElecCommu(0, "PHONE", Integer.parseInt(phonenumber));
+			int elecCommuPhoneId = new ElecCommuManager(ds).addElecCommu(phone);
+			
+			User user = new User(0, email, name, password, null, null, addressId, elecCommuPhoneId);
+			
+			int userId = new UsersManager(ds).addUser(user);
+			HttpSession session = request.getSession();
+			session.setAttribute("isLoggedIn", true); 
+			session.setAttribute("userName", name);
+			session.setAttribute("role", "USER");			
+			url = "/index.jsp";
 		} else {
 			
 			request.setAttribute("error", error);
@@ -78,7 +95,6 @@ public class SignupSaveServlet extends HttpServlet {
 			request.setAttribute("city", city);
 			request.setAttribute("state", state);
 			request.setAttribute("phonenumber", phonenumber);
-			request.setAttribute("mobilenumber", mobilenumber);
 			request.setAttribute("todonate", todonate);
 			request.setAttribute("tovolunteer", tovolunteer);
 			request.setAttribute("applyforhelp", applyforhelp);

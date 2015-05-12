@@ -98,7 +98,7 @@ public class UsersManager {
 		return validateUser;
 	}
 	
-	public int addUser(User user, int addressId, int elecCommuId) {
+	public int addUser(User user) {
 		// TODO Auto-generated method stub
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -121,8 +121,8 @@ public class UsersManager {
 			ps.setString(4, user.getPassword());
 			ps.setDate(5,(java.sql.Date) date);
 			ps.setString(6, user.getRole());
-			ps.setInt(7, addressId);
-			ps.setInt(8, elecCommuId);
+			ps.setInt(7, user.getAddressId());
+			ps.setInt(8, user.getElecCommuId());
 
 			
 			ps.executeUpdate();
