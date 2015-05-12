@@ -59,7 +59,6 @@ public class LoginServlet extends HttpServlet {
 
 		if (validateUser != null) {
 				request.setAttribute("user", validateUser);
-
 				HttpSession session = request.getSession();
 				session.setAttribute("isLoggedIn", true); 
 				session.setAttribute("userName", validateUser.getName());

@@ -100,6 +100,7 @@
       </div>
     </div>
   </div>	
+
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" value="Sign-Up" id="signup" name="signup" class="btn btn-default">
