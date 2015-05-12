@@ -55,4 +55,24 @@ Create Table HH_VOLUNTEER_ITEMS (
 									WORK_BEGIN_DT   DATE NOT NULL,
 									ADDRESS_ID      INT NOT NULL
 								)  
+								
+
+DROP TABLE HH_GEN_CD_TYP 
+
+CREATE TABLE HH_GEN_CD_TYP (
+								GEN_CD_TYP_ID	INT PRIMARY KEY NOT NULL,
+								GEN_CD_TYP_NAME		VARCHAR(100) NOT NULL,
+								GEN_CD_TYP_DESC		VARCHAR(250)
+							)								
+
+
+CREATE TABLE HH_GEN_CD	(
+							GEN_CD_TXT		VARCHAR(10) NOT NULL,
+							GEN_CD_NAME		VARCHAR(100) NOT NULL,
+							GEN_CD_BEGIN_DT DATE,
+							GEN_CD_END_DT DATE,
+							GEN_CD_TYP_ID	INT NOT NULL							
+						)
  
+						
+

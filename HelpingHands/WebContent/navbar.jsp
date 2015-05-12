@@ -60,7 +60,7 @@
       <ul class="nav navbar-nav navbar-right">
       	<c:if test="${isLoggedIn == false or (empty isLoggedIn) }">
 			<li><a href="signin.jsp">Sign-In</a></li>
-			<li><a href="signup.jsp">Sign-Up</a></li>	
+			<li><a href="SignupServlet">Sign-Up</a></li>	
 		</c:if>			
 		<c:if test="${isLoggedIn == true }">
 			<li><a href="LogoutServlet">Sign-Out</a></li>	

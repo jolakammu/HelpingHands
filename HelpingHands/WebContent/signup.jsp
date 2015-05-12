@@ -15,7 +15,7 @@
 <c:import url="navbar.jsp"></c:import> 
 <h2 class="text-center">Sign-Up Page</h2>
 
-<form action=SignupServlet method="post" class="form-horizontal">
+<form action="SignupSaveServlet" method="post" class="form-horizontal">
   <c:if test="${not empty error}">
   	<div class="alert alert-danger" role="alert">${error}</div>
   </c:if>	
@@ -57,18 +57,26 @@
   </div>
   <div class="form-group">
     <label for="state" class="col-sm-2 control-label">State</label>
-    <div class="col-sm-1">
-      <input type="text" class="form-control" id="state" placeholder="TX" required="required" value="${state}">
-    </div>
-  </div>
+	<div class="col-sm-2">
+    	<select name="state" id="state" class="form-control">
+    		<c:forEach var="state" items="${stateList}">
+        		<option value="${state.genCd}" ${country.state == selectedcountry ? 'selected="selected"' : ''}>${state.name}</option>
+    		</c:forEach>
+		</select>
+    </div>  
+  
   <div class="form-group">
     <label for="country" class="col-sm-2 control-label">Country</label>
-    <div class="col-sm-1">
-      <input type="text" class="form-control" id="country" placeholder="USA" required="required" value="${country}">
+    <div class="col-sm-2">
+    	<select name="country" id="country" class="form-control">
+    		<c:forEach var="country" items="${countryList}">
+        		<option value="${country.genCd}" ${country.genCd == selectedcountry ? 'selected="selected"' : ''}>${country.name}</option>
+    		</c:forEach>
+		</select>
     </div>
   </div>
   <div class="form-group">
-    <label for="country" class="col-sm-2 control-label">Work Phone</label>
+    <label for="phonenumber" class="col-sm-2 control-label">Work Phone</label>
     <div class="row">
     	<div class="col-xs-2">
       		<input type="tel" class="form-control" id="phonenumber" placeholder="NNNNNNNNNN" value="${phonearea}" size="10" maxlength="10">
@@ -76,7 +84,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="country" class="col-sm-2 control-label">Mobile Phone</label>
+    <label for="mobilenumber" class="col-sm-2 control-label">Mobile Phone</label>
     <div class="row">
     	<div class="col-xs-2">
       		<input type="tel" class="form-control" id="mobilenumber" placeholder="NNNNNNNNNN" value="${mobilenumber}" size="10" maxlength="10">
