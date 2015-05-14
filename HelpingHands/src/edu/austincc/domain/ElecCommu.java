@@ -2,42 +2,48 @@ package edu.austincc.domain;
 
 public class ElecCommu {
 	
-	int elecCommuId;
+	Integer elecCommuId;
 	String elecCommuTyp;
-	int elecCommuNum;
-	
-	public ElecCommu(int elecCommuId, String elecCommuTyp, int elecCommuNum) {
+	String elecCommuNum;
+
+	public ElecCommu(Integer elecCommuId, String elecCommuTyp,
+			String elecCommuNum) {
 		super();
 		this.elecCommuId = elecCommuId;
 		this.elecCommuTyp = elecCommuTyp;
 		this.elecCommuNum = elecCommuNum;
 	}
-	
-	public int getElecCommuId() {
+
+	public Integer getElecCommuId() {
 		return elecCommuId;
 	}
-	public void setElecCommuId(int elecCommuId) {
+
+	public void setElecCommuId(Integer elecCommuId) {
 		this.elecCommuId = elecCommuId;
 	}
+
 	public String getElecCommuTyp() {
 		return elecCommuTyp;
 	}
+
 	public void setElecCommuTyp(String elecCommuTyp) {
 		this.elecCommuTyp = elecCommuTyp;
 	}
-	public int getElecCommuNum() {
+
+	public String getElecCommuNum() {
 		return elecCommuNum;
 	}
-	public void setElecCommuNum(int elecCommuNum) {
+
+	public void setElecCommuNum(String elecCommuNum) {
 		this.elecCommuNum = elecCommuNum;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "ElecCommu [elecCommuId=" + elecCommuId + ", elecCommuTyp="
 				+ elecCommuTyp + ", elecCommuNum=" + elecCommuNum + "]";
 	}
-
+	
+	
 	
 }

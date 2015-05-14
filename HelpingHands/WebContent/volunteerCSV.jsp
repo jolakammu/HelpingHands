@@ -14,14 +14,15 @@
 <body bgcolor="lightgrey">
 <c:import url="navbar.jsp"></c:import> 
 <h2 class="text-center">Upload Volunteering Opportunities CSV file</h2>
-<form action=SignupServlet method="post" class="form-horizontal" enctype="multipart/form-data">
+<form action="LoadVolunteerItemsServlet" method="post" class="form-horizontal">
   <c:if test="${not empty error}">
   	<div class="alert alert-danger" role="alert">${error}</div>
   </c:if>	
   <div class="form-group">
-    <label for="fileinput" class="col-sm-2 control-label">File input</label>
+    <label for="filename" class="col-sm-2 control-label">File input</label>
     <div class="col-sm-4">
-      <input type="file" class="form-control" id="file"  placeholder="choose file" maxlength="254" required="required">
+      <input type="file" class="form-control" id="filename"  name="filename" placeholder="choose file" maxlength="254" required="required">
+      <input type="text" class="form-control" id="action"  name="action" value="action">
     </div>
   </div>
   <div class="form-group">
@@ -30,7 +31,6 @@
       <input type="reset"  value="Clear" id="Clear" name="Clear" class="btn btn-default">
     </div>
   </div>
-  
 </form>
 <myTags:Footer/>
 </body>

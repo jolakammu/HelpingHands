@@ -69,9 +69,7 @@ public class LoginServlet extends HttpServlet {
 			error = "Invalid login credentials. Please try again.";
 			request.setAttribute("error", error);
 			request.setAttribute("email", email);
-		}
-			
-		
+		}					
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 

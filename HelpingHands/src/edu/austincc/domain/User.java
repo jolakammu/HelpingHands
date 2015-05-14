@@ -9,33 +9,33 @@ public class User {
 	String	password;
 	Date 	passwordExpiry;
 	String	role;
-	int		addressId;
-	int     elecCommuId;
-	
-	
+	String	type;
+	Integer		addressId;
+	Integer     elecCommuId;
 	//Constructors
-	public User(String email) {
-		super();
-		this.email = email;
-	}
+		public User(String email) {
+			super();
+			this.email = email;
+		}
 
-	public User(String email, String password) {
-		super();
-		this.email = email;
-		this.password = password;
-	}
+		public User(String email, String password) {
+			super();
+			this.email = email;
+			this.password = password;
+		}
 
-	public User(Integer userId, String email, String name, String role) {
-		super();
-		this.userId = userId;
-		this.email = email;
-		this.name = name;
-		this.role = role;
-	}
-
-
+		public User(Integer userId, String email, String name, String role,String type) {
+			super();
+			this.userId = userId;
+			this.email = email;
+			this.name = name;
+			this.role = role;
+			this.type = type;
+		}	
+	
 	public User(Integer userId, String email, String name, String password,
-			Date passwordExpiry, String role, int addressId, int elecCommuId) {
+			Date passwordExpiry, String role, String type, Integer addressId,
+			Integer elecCommuId) {
 		super();
 		this.userId = userId;
 		this.email = email;
@@ -43,6 +43,7 @@ public class User {
 		this.password = password;
 		this.passwordExpiry = passwordExpiry;
 		this.role = role;
+		this.type = type;
 		this.addressId = addressId;
 		this.elecCommuId = elecCommuId;
 	}
@@ -95,7 +96,15 @@ public class User {
 		this.role = role;
 	}
 
-	public int getAddressId() {
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Integer getAddressId() {
 		return addressId;
 	}
 
@@ -103,7 +112,7 @@ public class User {
 		this.addressId = addressId;
 	}
 
-	public int getElecCommuId() {
+	public Integer getElecCommuId() {
 		return elecCommuId;
 	}
 
@@ -115,10 +124,10 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", email=" + email + ", name=" + name
 				+ ", password=" + password + ", passwordExpiry="
-				+ passwordExpiry + ", role=" + role + ", addressId="
-				+ addressId + ", elecCommuId=" + elecCommuId + "]";
+				+ passwordExpiry + ", role=" + role + ", type=" + type
+				+ ", addressId=" + addressId + ", elecCommuId=" + elecCommuId
+				+ "]";
 	}
-	
 	
 	
 	

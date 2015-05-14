@@ -17,7 +17,7 @@ public class ReadVolunteerCSV {
 		BufferedReader bufferedReaderr = null;
 		FileReader fileReader = null;
 		String data = "";
-		ArrayList<VolunteerCSV> volunteerItemsArray = new ArrayList<VolunteerCSV>(); 
+		ArrayList<VolunteerCSV> volunteerItems = new ArrayList<VolunteerCSV>(); 
 	 
 		try {
 	 
@@ -27,8 +27,8 @@ public class ReadVolunteerCSV {
 	 
 			        // use comma as separator
 				String[] stringData = data.split(delimiter);
-				VolunteerCSV volunteerCSV = new VolunteerCSV(stringData[0],stringData[1],stringData[2],stringData[3],stringData[4],stringData[5],stringData[6],stringData[7],stringData[8],stringData[9],stringData[10],stringData[11]);
-				volunteerItemsArray.add(volunteerCSV);
+				VolunteerCSV volunteerCSV = new VolunteerCSV(stringData[0],stringData[1],stringData[2],stringData[3],stringData[4],stringData[5],stringData[6],stringData[7],stringData[8],stringData[9],stringData[10]);
+				volunteerItems.add(volunteerCSV);
 			}
 	 
 		} catch (FileNotFoundException e) {
@@ -46,6 +46,6 @@ public class ReadVolunteerCSV {
 	
 			
 		}	
-		return volunteerItemsArray;
+		return volunteerItems;
 	}
 }

@@ -2,14 +2,14 @@ package edu.austincc.domain;
 
 public class Address {
 	
-	int addressId;
+	Integer addressId;
 	String delivery;
 	String city;
 	String state;
 	String country;
 	String zip;
 	
-	public Address(int addressId, String delivery, String city, String state,
+	public Address(Integer addressId, String delivery, String city, String state,
 			String country, String zip) {
 		super();
 		this.addressId = addressId;

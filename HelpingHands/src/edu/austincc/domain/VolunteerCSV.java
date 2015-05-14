@@ -11,13 +11,12 @@ public class VolunteerCSV {
 	String orgState;
 	String orgCountry;
 	String orgzip;
-	String orgWorkPhone;
-	String orgMobilePhone;
+	String orgPhone;
 	
 	public VolunteerCSV(String orgName, String orgCategory, String workDesc,
 			String manHrs, String workBeginDtTime, String orgDelivery,
 			String orgCity, String orgState, String orgCountry, String orgzip,
-			String orgWorkPhone, String orgMobilePhone) {
+			String orgPhone) {
 		super();
 		OrgName = orgName;
 		OrgCategory = orgCategory;
@@ -29,8 +28,7 @@ public class VolunteerCSV {
 		this.orgState = orgState;
 		this.orgCountry = orgCountry;
 		this.orgzip = orgzip;
-		this.orgWorkPhone = orgWorkPhone;
-		this.orgMobilePhone = orgMobilePhone;
+		this.orgPhone = orgPhone;
 	}
 
 	public String getOrgName() {
@@ -113,20 +111,12 @@ public class VolunteerCSV {
 		this.orgzip = orgzip;
 	}
 
-	public String getOrgWorkPhone() {
-		return orgWorkPhone;
+	public String getOrgPhone() {
+		return orgPhone;
 	}
 
-	public void setOrgWorkPhone(String orgWorkPhone) {
-		this.orgWorkPhone = orgWorkPhone;
-	}
-
-	public String getOrgMobilePhone() {
-		return orgMobilePhone;
-	}
-
-	public void setOrgMobilePhone(String orgMobilePhone) {
-		this.orgMobilePhone = orgMobilePhone;
+	public void setOrgPhone(String orgPhone) {
+		this.orgPhone = orgPhone;
 	}
 
 	@Override
@@ -136,9 +126,8 @@ public class VolunteerCSV {
 				+ ", WorkBeginDtTime=" + WorkBeginDtTime + ", orgDelivery="
 				+ orgDelivery + ", orgCity=" + orgCity + ", orgState="
 				+ orgState + ", orgCountry=" + orgCountry + ", orgzip="
-				+ orgzip + ", orgWorkPhone=" + orgWorkPhone
-				+ ", orgMobilePhone=" + orgMobilePhone + "]";
+				+ orgzip + ", orgPhone=" + orgPhone + "]";
 	}
-	
+
 	
 }

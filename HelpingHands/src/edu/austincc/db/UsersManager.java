@@ -27,13 +27,13 @@ public class UsersManager {
 
 	public User getUser(String email, String password) {
 		
-		User validateUser = null;
+		User validatedUser = null;
 
 		try {
 			Connection connection;
 			connection = ds.getConnection();
 
-			PreparedStatement ps = connection.prepareStatement("select USER_ID,EMAIL_TXT,NAME,PASSWORD_EXPIRY_DT,ROLE_CD from SE_USER where EMAIL_TXT = ? and PASSWORD_TXT = ?");
+			PreparedStatement ps = connection.prepareStatement("select USER_ID,EMAIL_TXT,NAME,PASSWORD_EXPIRY_DT,ROLE_CD, USER_TYP from SE_USER where EMAIL_TXT = ? and PASSWORD_TXT = ?");
 			ps.setString(1, email);
 			ps.setString(2, password);
 			ResultSet resultSet = ps.executeQuery();
@@ -43,10 +43,11 @@ public class UsersManager {
 				//String dateString = resultSet.getString("PASSWORD_EXPIRY_DT");
 				//Date passwordExpiryDate = df.parse(dateString);
 				
-				validateUser = new User( Integer.parseInt(resultSet.getString("USER_ID")),
+				validatedUser = new User( Integer.parseInt(resultSet.getString("USER_ID")),
 									resultSet.getString("EMAIL_TXT"),
 									resultSet.getString("NAME"),
-									resultSet.getString("ROLE_CD")
+									resultSet.getString("ROLE_CD"),
+									resultSet.getString("USER_TYP")
 									
 						);
 			}
@@ -59,7 +60,7 @@ public class UsersManager {
 			e.printStackTrace();
 		}
 
-		return validateUser;
+		return validatedUser;
 	}
 	
 	public User getUser(String email) {
@@ -70,7 +71,7 @@ public class UsersManager {
 			Connection connection;
 			connection = ds.getConnection();
 
-			PreparedStatement ps = connection.prepareStatement("select Distinct USER_ID,EMAIL_TXT,NAME,ROLE_CD from SE_USER where EMAIL_TXT = ?");
+			PreparedStatement ps = connection.prepareStatement("select Distinct USER_ID,EMAIL_TXT,NAME,ROLE_CD,USER_TYP  from SE_USER where EMAIL_TXT = ?");
 			ps.setString(1, email);
 			ResultSet resultSet = ps.executeQuery();
 
@@ -82,7 +83,8 @@ public class UsersManager {
 				validateUser = new User( Integer.parseInt(resultSet.getString("USER_ID")),
 									resultSet.getString("EMAIL_TXT"),
 									resultSet.getString("NAME"),
-									resultSet.getString("ROLE_CD")
+									resultSet.getString("ROLE_CD"),
+									resultSet.getString("USER_TYP")
 									
 						);
 			}
@@ -106,7 +108,7 @@ public class UsersManager {
 		try {
 			Connection connection;
 			connection = ds.getConnection();
-			ps = connection.prepareStatement("select Max(USER_ID) + 1 as USER_ID from app.SE_USER");
+			ps = connection.prepareStatement("select Coalesce(Max(USER_ID),0) + 1  as USER_ID from app.SE_USER");
 			Date date = new java.sql.Date(3000-12-31);
 			
 			ResultSet resultSet = ps.executeQuery();
@@ -114,15 +116,16 @@ public class UsersManager {
 				userId = Integer.parseInt(resultSet.getString("USER_ID"));
 			}
 			
-			ps = connection.prepareStatement("insert into app.SE_USER(USER_ID,EMAIL_TXT,NAME,PASSWORD_TXT,PASSWORD_EXPIRY_DT,ROLE_CD,ADDRESS_ID,ELEC_COMMMU_ID) values (?,?,?,?,?,?,?,?)");
+			ps = connection.prepareStatement("insert into app.SE_USER(USER_ID,EMAIL_TXT,NAME,PASSWORD_TXT,PASSWORD_EXPIRY_DT,ROLE_CD,USER_TYP,ADDRESS_ID,ELEC_COMMU_ID) values (?,?,?,?,?,?,?,?,?)");
 			ps.setInt(1, userId);
 			ps.setString(2, user.getEmail());	
 			ps.setString(3, user.getName());
 			ps.setString(4, user.getPassword());
 			ps.setDate(5,(java.sql.Date) date);
 			ps.setString(6, user.getRole());
-			ps.setInt(7, user.getAddressId());
-			ps.setInt(8, user.getElecCommuId());
+			ps.setString(7, user.getType());
+			ps.setInt(8, user.getAddressId());
+			ps.setInt(9, user.getElecCommuId());
 
 			
 			ps.executeUpdate();
@@ -145,15 +148,16 @@ public class UsersManager {
 			connection = ds.getConnection();
 			Date date = new java.sql.Date(3000-12-31);
 			
-			ps = connection.prepareStatement("Update app.SE_USER set EMAIL_TXT= ?, NAME = ?, PASSWORD_TXT=?, PASSWORD_EXPIRY_DT=?,ROLE_CD=?, ADDRESS_ID=?,ELEC_COMMU_ID=? where USER_ID = ?");
+			ps = connection.prepareStatement("Update app.SE_USER set EMAIL_TXT= ?, NAME = ?, PASSWORD_TXT=?, PASSWORD_EXPIRY_DT=?,ROLE_CD=?, user_typ=?,ADDRESS_ID=?,ELEC_COMMU_ID=? where USER_ID = ?");
 			ps.setString(1, user.getEmail());	
 			ps.setString(2, user.getName());
 			ps.setString(3, user.getPassword());
 			ps.setDate(4,(java.sql.Date) date);
 			ps.setString(5, user.getRole());
-			ps.setInt(6, user.getUserId());
+			ps.setString(6, user.getType());
 			ps.setInt(7, user.getAddressId());
 			ps.setInt(8, user.getElecCommuId());
+			ps.setInt(9, user.getUserId());
 			ps.executeUpdate();
 			ps.close();
 			connection.close();

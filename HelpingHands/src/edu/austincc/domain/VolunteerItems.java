@@ -4,35 +4,38 @@ import java.util.Date;
 
 public class VolunteerItems {
 
-	int volunteeringItemId; 
+	int volunteertemId; 
 	String OrgName;
 	String OrgCategory; 
 	String WorkDesc;
 	int ManHrs;
 	Date WorkBeginDtTime;
+	int  addressId;
+	int  elecCommuId;
 	
 	
-	//Constructors
-	public VolunteerItems(int volunteeringItemId, String orgName,
+	public VolunteerItems(int volunteertemId, String orgName,
 			String orgCategory, String workDesc, int manHrs,
-			Date workBeginDtTime) {
+			Date workBeginDtTime, int addressId, int elecCommuId) {
 		super();
-		this.volunteeringItemId = volunteeringItemId;
+		this.volunteertemId = volunteertemId;
 		OrgName = orgName;
 		OrgCategory = orgCategory;
 		WorkDesc = workDesc;
 		ManHrs = manHrs;
 		WorkBeginDtTime = workBeginDtTime;
+		this.addressId = addressId;
+		this.elecCommuId = elecCommuId;
 	}
 
 
-	public int getVolunteeringItemId() {
-		return volunteeringItemId;
+	public int getVolunteertemId() {
+		return volunteertemId;
 	}
 
 
-	public void setVolunteeringItemId(int volunteeringItemId) {
-		this.volunteeringItemId = volunteeringItemId;
+	public void setVolunteertemId(int volunteertemId) {
+		this.volunteertemId = volunteertemId;
 	}
 
 
@@ -86,14 +89,35 @@ public class VolunteerItems {
 	}
 
 
+	public int getAddressId() {
+		return addressId;
+	}
+
+
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
+	}
+
+
+	public int getElecCommuId() {
+		return elecCommuId;
+	}
+
+
+	public void setElecCommuId(int elecCommuId) {
+		this.elecCommuId = elecCommuId;
+	}
+
+
 	@Override
 	public String toString() {
-		return "VolunteerItems [volunteeringItemId=" + volunteeringItemId
+		return "VolunteerItems [volunteertemId=" + volunteertemId
 				+ ", OrgName=" + OrgName + ", OrgCategory=" + OrgCategory
 				+ ", WorkDesc=" + WorkDesc + ", ManHrs=" + ManHrs
-				+ ", WorkBeginDtTime=" + WorkBeginDtTime + "]";
-	}  
+				+ ", WorkBeginDtTime=" + WorkBeginDtTime + ", addressId="
+				+ addressId + ", elecCommuId=" + elecCommuId + "]";
+	}
 	
-	//To Sting Method
+	
 	
 }

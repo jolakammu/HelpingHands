@@ -11,6 +11,7 @@ CREATE TABLE SE_USER (
   						PASSWORD_TXT			VARCHAR(8) NOT NULL,
   						PASSWORD_EXPIRY_DT		DATE,
   						ROLE_CD					VARCHAR(10),
+  						USER_TYP				VARCHAR(10) NOT NULL, 
   						ADDRESS_ID				INT NOT NULL,
   						ELEC_COMMU_ID			INT
   					)
@@ -31,17 +32,15 @@ CREATE TABLE HH_ADDRESS (
   							ZIP_TXT						VARCHAR(5)
   						)
 
-drop table HH_ELEC_COMMUNICATION
+drop table HH_ELEC_COMMU
 
 CREATE TABLE HH_ELEC_COMMU
 			(
 				ELEC_COMMU_ID	INT PRIMARY KEY NOT NULL,
 				ELEC_COMMU_TYP  VARCHAR(10) NOT NULL,
-				ELEC_COMMU_NUM		VARCHAR(10) NOT NULL
+				ELEC_COMMU_NUM	VARCHAR(10) NOT NULL
 			)
-  													MOBILE_PHONE_NUM		VARCHAR(10),
-							WORK_PHONE_NUM		    VARCHAR(10),
-
+  													
  
 drop table HH_VOLUNTEER_ITEMS
 
@@ -53,7 +52,8 @@ Create Table HH_VOLUNTEER_ITEMS (
 									WORK_DESC VARCHAR(500) NOT NULL,
 									MAN_HRS   INT NOT NULL,
 									WORK_BEGIN_DT   DATE NOT NULL,
-									ADDRESS_ID      INT NOT NULL
+									ADDRESS_ID      INT NOT NULL,
+									ELEC_COMMU_ID	INT
 								)  
 								
 
@@ -74,5 +74,13 @@ CREATE TABLE HH_GEN_CD	(
 							GEN_CD_TYP_ID	INT NOT NULL							
 						)
  
+						select coalesce(Max(ADDRESS_ID),0) + 1 as ADDRESS_ID from app.HH_ADDRESS
 						
+						select Max(RECIPE_ID) + 1 as ID from app.RECIPE
+						
+truncate table app.HH_ELEC_COMMU
+truncate table app.HH_ADDRESS
+truncate table app.SE_USER
 
+
+select * from app.SE_USER

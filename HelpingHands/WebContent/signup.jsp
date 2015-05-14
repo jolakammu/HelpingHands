@@ -27,31 +27,31 @@
   <div class="form-group">
     <label for="password" class="col-sm-2 control-label">Password</label>
     <div class="col-sm-2">
-      <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required" maxlength="8">
     </div>
   </div>
 	<div class="form-group">
     <label for="password" class="col-sm-2 control-label">Confirm Password</label>
     <div class="col-sm-2">
-      <input type="password" class="form-control" id="password1" name="password1"placeholder="Confirm Password" required="required">
+      <input type="password" class="form-control" id="password1" name="password1"placeholder="Confirm Password" required="required" maxlength="8">
     </div>
   </div>
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="required" value="${name}">
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="required" value="${name}" maxlength="100">
     </div>
   </div>
   <div class="form-group">
     <label for="delivery" class="col-sm-2 control-label">Delivery</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" id="delivery" name="delivery" placeholder="13031 scofield farms dr" required="required" value="${delivery}">
+      <input type="text" class="form-control" id="delivery" name="delivery" placeholder="13031 scofield farms dr" required="required" value="${delivery}" maxlength="50">
     </div>
   </div>
   <div class="form-group">
     <label for="city" class="col-sm-2 control-label">City</label>
     <div class="col-sm-3">
-      <input type="text" class="form-control" id="city" name="city" placeholder="Austin" required="required" value="${city}">
+      <input type="text" class="form-control" id="city" name="city" placeholder="Austin" required="required" value="${city}" maxlength="32">
     </div>
   </div>
   <div class="form-group">
@@ -59,7 +59,7 @@
 	<div class="col-sm-1">
     	<select name="state" id="state" class="form-control">
     		<c:forEach var="state" items="${stateList}">
-        		<option value="${state.genCd}" ${country.state == selectedcountry ? 'selected="selected"' : ''}>${state.name}</option>
+        		<option value="${state.genCd}" ${country.state == state ? 'selected="selected"' : ''}>${state.name}</option>
     		</c:forEach>
 		</select>
     </div>  
@@ -69,7 +69,7 @@
     <div class="col-sm-2">
     	<select name="country" id="country" class="form-control">
     		<c:forEach var="country" items="${countryList}">
-        		<option value="${country.genCd}" ${country.genCd == selectedcountry ? 'selected="selected"' : ''}>${country.name}</option>
+        		<option value="${country.genCd}" ${country.genCd == country ? 'selected="selected"' : ''}>${country.name}</option>
     		</c:forEach>
 		</select>
     </div>
@@ -100,14 +100,14 @@
       </div>
     </div>
   </div>	
-
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" value="Sign-Up" id="signup" name="signup" class="btn btn-default">
       <input type="reset"  value="Clear" id="Clear" name="Clear" class="btn btn-default">
     </div>
   </div>
-  <input type="hidden" class="form-control" id="action" value="SIGNUP">
+  <input type="hidden" class="form-control" id="action" name="action" value="SIGNUP">
+  <input type="hidden" class="form-control" id="type" name="type" value="EXTERNAL">
 </form>
 <myTags:Footer/>
 </body>
