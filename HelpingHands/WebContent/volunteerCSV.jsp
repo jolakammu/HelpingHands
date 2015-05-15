@@ -21,8 +21,7 @@
   <div class="form-group">
     <label for="filename" class="col-sm-2 control-label">File input</label>
     <div class="col-sm-4">
-      <input type="file" class="form-control" id="filename"  name="filename" placeholder="choose file" maxlength="254" required="required">
-      <input type="text" class="form-control" id="action"  name="action" value="action">
+      <input type="file" class="form-control" id="filename"  name="filename" placeholder="choose file" maxlength="254" required="required" title="Select a File">
     </div>
   </div>
   <div class="form-group">

@@ -53,7 +53,8 @@ public class LoginServlet extends HttpServlet {
 		
 		String url = "/signin.jsp";	
 		String email = request.getParameter("email");
-		String password = request.getParameter("password") ;		
+		String password = request.getParameter("password");
+		String remember = request.getParameter("remember") ;
 		String error = null;	
 		User validateUser = new UsersManager(ds).getUser(email, password);
 

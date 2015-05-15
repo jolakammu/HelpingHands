@@ -26,7 +26,7 @@ public class VolunteerItemsManager {
 		try {
 				Connection connection;
 				connection = ds.getConnection();
-				ps = connection.prepareStatement("select Coalesce(Max(VOLUNTEER_ITEM_ID),0) + 1 as VOLUNTEER_ITEM_ID from app.HH_ADDRESS");
+				ps = connection.prepareStatement("select Coalesce(Max(VOLUNTEER_ITEM_ID),0) + 1 as VOLUNTEER_ITEM_ID from app.HH_VOLUNTEER_ITEMS");
 
 			
 				ResultSet resultSet = ps.executeQuery();

@@ -8,11 +8,11 @@
 
 <sql:setDataSource dataSource="jdbc/DB" />
 
-<c:import url="header.jsp"></c:import>
+<c:import url="/WEB-INF/header.jsp"></c:import>
 <title>Helping Hands</title>
 </head>
 <body bgcolor="lightgrey">
-	<c:import url="navbar.jsp"></c:import> 
+	<c:import url="/WEB-INF/navbar.jsp"></c:import> 
 	
 	<h2 class="text-center">Volunteer Page</h2>
 <myTags:Footer/>

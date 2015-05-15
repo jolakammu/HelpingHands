@@ -38,7 +38,7 @@ public class SignupServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String url = "/signup.jsp";
+		String url = "/WEB-INF/signup.jsp";
 		GenCdManager gCM = new GenCdManager(ds);		
 		String country = "COUNTRY";
 		ArrayList<GenCodes> countryList = gCM.getGenCodes(country);

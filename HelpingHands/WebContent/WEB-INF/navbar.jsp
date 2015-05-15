@@ -34,17 +34,6 @@
         </div>
         <button type="submit" class="btn btn-default">Search Site</button>
       </form>
-      <c:if test="${role == 'ADMIN'}">
- 	  <ul class="nav navbar-nav navbar-right">        
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Utilities<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="volunteerCSV.jsp">Upload Volunteering CSV</a></li>
-            <li><a href="siteindex.jsp">ore..</a></li>
-          </ul>
-        </li>
-      </ul>      
-      </c:if>
  	  <ul class="nav navbar-nav navbar-right">        
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">more... <span class="caret"></span></a>
@@ -57,6 +46,20 @@
           </ul>
         </li>
       </ul>      
+      <c:if test="${role == 'ADMIN' and isLoggedIn == true}">
+	 	  <ul class="nav navbar-nav navbar-right">        
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin Utilities<span class="caret"></span></a>
+	          <ul class="dropdown-menu" role="menu">
+	            <li><a href="volunteerCSV.jsp">Upload Volunteering CSV</a></li>
+	            <li><a href="siteindex.jsp">User Maintenance</a></li>
+	            <li><a href="siteindex.jsp">More..</a></li>
+	            <li>${role}</li>
+	          </ul>
+	        </li>
+	      </ul>      
+      </c:if>
+      
       <ul class="nav navbar-nav navbar-right">
       	<c:if test="${isLoggedIn == false or (empty isLoggedIn) }">
 			<li><a href="signin.jsp">Sign-In</a></li>
@@ -66,7 +69,7 @@
 			<li><a href="LogoutServlet">Sign-Out</a></li>	
 		</c:if>			
       </ul>
-    </div><!-- /.navbar-collapse -->
+    </div> <!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
   <div class="container-fluid">
 	<c:if test="${isLoggedIn == true }">

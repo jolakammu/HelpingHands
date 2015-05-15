@@ -113,8 +113,9 @@ public class SignupSaveServlet extends HttpServlet {
 			request.setAttribute("todonate", todonate);
 			request.setAttribute("tovolunteer", tovolunteer);
 			request.setAttribute("applyforhelp", applyforhelp);
-			url = "/SignupServlet";
-			getServletContext().getRequestDispatcher(url).forward(request, response);
+			url = "SignupServlet";
+			//getServletContext().getRequestDispatcher(url).forward(request, response);
+			response.sendRedirect(url);
 			
 		}
 		

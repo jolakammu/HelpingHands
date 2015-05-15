@@ -26,7 +26,7 @@ public class ElecCommuManager {
 		try {
 				Connection connection;
 				connection = ds.getConnection();
-				ps = connection.prepareStatement("select Coalesce(ELEC_COMMU_ID,0) as ELEC_COMMU_ID from app.HH_ELEC_COMMU wheere ELEC_COMMU_TYP = ? and ELEC_COMMU_NUM = ?");
+				ps = connection.prepareStatement("select Coalesce(ELEC_COMMU_ID,0) as ELEC_COMMU_ID from app.HH_ELEC_COMMU where ELEC_COMMU_NUM = ? and ELEC_COMMU_TYP = ?");
 				ps.setString(1, elecCommu.getElecCommuTyp());	
 				ps.setString(2, elecCommu.getElecCommuNum());			
 				ResultSet resultSet = ps.executeQuery();

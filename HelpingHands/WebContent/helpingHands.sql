@@ -45,13 +45,13 @@ CREATE TABLE HH_ELEC_COMMU
 drop table HH_VOLUNTEER_ITEMS
 
 
-Create Table HH_VOLUNTEER_ITEMS (
+Create Table app.HH_VOLUNTEER_ITEMS (
 									VOLUNTEER_ITEM_ID INT PRIMARY KEY NOT NULL, 
 									ORG_NAME VARCHAR(100), 
 									ORG_CATEGORY VARCHAR(10), 
 									WORK_DESC VARCHAR(500) NOT NULL,
 									MAN_HRS   INT NOT NULL,
-									WORK_BEGIN_DT   DATE NOT NULL,
+									WORK_BEGIN_DT   DATE not null,
 									ADDRESS_ID      INT NOT NULL,
 									ELEC_COMMU_ID	INT
 								)  
@@ -84,3 +84,9 @@ truncate table app.SE_USER
 
 
 select * from app.SE_USER
+
+
+select ELEC_COMMU_TYP  from app.HH_ELEC_COMMU
+
+
+select * from app.HH_VOLUNTEER_ITEMS
