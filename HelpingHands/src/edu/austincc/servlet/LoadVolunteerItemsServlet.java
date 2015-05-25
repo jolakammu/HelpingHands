@@ -78,6 +78,7 @@ public class LoadVolunteerItemsServlet extends HttpServlet {
 			//Date workDate = new java.sql.Date(volunteerCSV.getWorkBeginDtTime());
 			
 			// Create the Volunteering Opportunities
+			
 			DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 			Date workDate;
 			try {

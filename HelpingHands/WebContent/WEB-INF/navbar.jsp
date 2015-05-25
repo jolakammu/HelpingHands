@@ -20,7 +20,7 @@
         <!-- <li><a href="donate.jsp">Donate</a></li> -->
         <c:choose>
         	<c:when test="${role == 'ADMIN'}">
-        		<li><a href="volunteering.jsp">Volunteering List</a></li>
+        		<li><a href="VolunteeringListServlet">Volunteering List</a></li>
         	</c:when>
         	<c:otherwise>
         		<li><a href="volunteer.jsp">Volunteering List</a></li>

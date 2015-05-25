@@ -10,10 +10,30 @@ public class VolunteerItems {
 	String WorkDesc;
 	int ManHrs;
 	Date WorkBeginDtTime;
-	int  addressId;
-	int  elecCommuId;
+	int	addressId;
+	int elecCommuId;	
+	Address address;
+	ElecCommu elecCommu;
 	
 	
+	public VolunteerItems(int volunteertemId, String orgName,
+			String orgCategory, String workDesc, int manHrs,
+			Date workBeginDtTime, int addressId, int elecCommuId,
+			Address address, ElecCommu elecCommu) {
+		super();
+		this.volunteertemId = volunteertemId;
+		OrgName = orgName;
+		OrgCategory = orgCategory;
+		WorkDesc = workDesc;
+		ManHrs = manHrs;
+		WorkBeginDtTime = workBeginDtTime;
+		this.addressId = addressId;
+		this.elecCommuId = elecCommuId;
+		this.address = address;
+		this.elecCommu = elecCommu;
+	}
+
+
 	public VolunteerItems(int volunteertemId, String orgName,
 			String orgCategory, String workDesc, int manHrs,
 			Date workBeginDtTime, int addressId, int elecCommuId) {
@@ -26,8 +46,9 @@ public class VolunteerItems {
 		WorkBeginDtTime = workBeginDtTime;
 		this.addressId = addressId;
 		this.elecCommuId = elecCommuId;
+		this.address = address;
+		this.elecCommu = elecCommu;
 	}
-
 
 	public int getVolunteertemId() {
 		return volunteertemId;
@@ -109,15 +130,37 @@ public class VolunteerItems {
 	}
 
 
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+
+	public ElecCommu getElecCommu() {
+		return elecCommu;
+	}
+
+
+	public void setElecCommu(ElecCommu elecCommu) {
+		this.elecCommu = elecCommu;
+	}
+
+
 	@Override
 	public String toString() {
 		return "VolunteerItems [volunteertemId=" + volunteertemId
 				+ ", OrgName=" + OrgName + ", OrgCategory=" + OrgCategory
 				+ ", WorkDesc=" + WorkDesc + ", ManHrs=" + ManHrs
 				+ ", WorkBeginDtTime=" + WorkBeginDtTime + ", addressId="
-				+ addressId + ", elecCommuId=" + elecCommuId + "]";
+				+ addressId + ", elecCommuId=" + elecCommuId + ", address="
+				+ address + ", elecCommu=" + elecCommu + "]";
 	}
+
 	
-	
-	
+
+
 }

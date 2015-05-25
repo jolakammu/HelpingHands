@@ -22,7 +22,7 @@
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-5">
-      <input type="email" class="form-control" id="email" name="email" placeholder="Enter a valid Email address" maxlength="254" value="${email}"  required>
+      <input type="email" class="form-control" id="email" name="email" placeholder="Enter a valid Email address" maxlength="254" value="${cookie.email.value}"  required>
     </div> 
     <div class="help-block with-errors"></div>
   </div>
@@ -36,7 +36,7 @@
     <div class="col-sm-offset-2 col-sm-10">
       <div class="checkbox">
         <label>
-          <input type="checkbox" id="remember" name="remember" value="yes"> Remember me
+          <input type="checkbox" id="remember" name="remember" value="YES"  <c:if test="${cookie.remember.value=='YES'}">checked="checked"</c:if>> Remember me
         </label>
       </div>
     </div>
