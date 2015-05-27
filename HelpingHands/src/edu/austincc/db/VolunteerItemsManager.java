@@ -43,7 +43,7 @@ public class VolunteerItemsManager {
 				ps.setString(3, volunteerItems.getOrgCategory());
 				ps.setString(4, volunteerItems.getWorkDesc());
 				ps.setLong(5,volunteerItems.getManHrs());
-				ps.setDate(6,(java.sql.Date) volunteerItems.getWorkBeginDtTime());
+				ps.setDate(6, new java.sql.Date(volunteerItems.getWorkBeginDtTime().getTime()));
 				ps.setInt(7, volunteerItems.getAddressId());
 				ps.setInt(8, volunteerItems.getElecCommuId());
 				

@@ -79,7 +79,7 @@ public class LoadVolunteerItemsServlet extends HttpServlet {
 			
 			// Create the Volunteering Opportunities
 			
-			DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+			DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 			Date workDate;
 			try {
 				workDate = formatter.parse(volunteerCSV.getWorkBeginDtTime());

@@ -106,8 +106,20 @@ and   vi.ELEC_COMMU_ID = ec.ELEC_COMMU_ID
 
 
 
+
 Select vi.VOLUNTEER_ITEM_ID, vi.ORG_NAME, vi.ORG_CATEGORY, vi.WORK_DESC, vi.MAN_HRS, vi.WORK_BEGIN_DT, vi.ADDRESS_ID, addr.DELIVERY_TXT, addr.city, addr.state_cd, addr.COUNTRY_CD, addr.ZIP_TXT, vi.ELEC_COMMU_ID, ec.ELEC_COMMU_TYP, ec.ELEC_COMMU_NUM from app.HH_VOLUNTEER_ITEMS vi, APP.HH_ADDRESS addr, APP.HH_ELEC_COMMU ec where vi.ADDRESS_ID = addr.ADDRESS_ID and   vi.ELEC_COMMU_ID = ec.ELEC_COMMU_ID
+
+
+insert into APP.HH_VOLUNTEER_ITEMS (VOLUNTEER_ITEM_ID, 
+									ORG_NAME, 
+									ORG_CATEGORY , 
+									WORK_DESC ,
+									MAN_HRS,
+									WORK_BEGIN_DT,
+									ADDRESS_ID,
+									ELEC_COMMU_ID)
+									values (3,'TCEQ', 'EMV','Beach cleanup',10,'2016-01-01',2,2)
 									
-									
+select * from app.HH_VOLUNTEER_ITEMS
 									
 									

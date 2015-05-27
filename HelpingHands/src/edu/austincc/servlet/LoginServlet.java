@@ -85,13 +85,16 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("role", validateUser.getRole());
 				url = "/index.jsp";				
 				//response.sendRedirect(url);
+				response.sendRedirect(request.getContextPath() + url);
 		} else {
 			
 			error = "Invalid login credentials. Please try again.";
-			request.setAttribute("error", error);
+			session.setAttribute("error", error);
+			url = "/signin.jsp";
+			request.getRequestDispatcher(url).forward(request, response);
 		}					
-		//getServletContext().getRequestDispatcher(url).forward(request, response);
-		response.sendRedirect(request.getContextPath() + url);
+		
+		
 	}
 
 	

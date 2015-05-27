@@ -41,9 +41,9 @@
   					<td class="active">${vil.address.delivery} ${vil.address.city} ${vil.address.state} ${vil.address.country} ${vil.address.zip}</td>
   					<td class="active">${vil.elecCommu.elecCommuNum}</td>
   					<td class="active"></td>
-  					<td class="active">${vil.}</td>
+  					<td class="active"></td>
   					<td class="active">0</td>
-  					<td class="active">${vil.ManHrs}</td>
+  					<td class="active">${vil.manHrs}</td>
 				</tr>  	
 			</c:forEach>					
 		</table>
