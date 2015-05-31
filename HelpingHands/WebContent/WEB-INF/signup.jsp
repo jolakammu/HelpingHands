@@ -14,7 +14,7 @@
 <body bgcolor="lightgrey">
 <c:import url="navbar.jsp"></c:import> 
 <h2 class="text-center">Sign-Up Page</h2>
-<form action="SignupSaveServlet" method="post" class="form-horizontal">
+<form action="SignupServlet" method="post" class="form-horizontal">
   <c:if test="${not empty error}">
   	<div class="alert alert-danger" role="alert">${error}</div>
   </c:if>	
@@ -56,7 +56,7 @@
   </div>
   <div class="form-group">
     <label for="state" class="col-sm-2 control-label">State</label>
-	<div class="col-sm-1">
+	<div class="col-sm-2">
     	<select name="state" id="state" class="form-control">
     		<c:forEach var="state" items="${stateList}">
         		<option value="${state.genCd}" ${country.state == state ? 'selected="selected"' : ''}>${state.name}</option>

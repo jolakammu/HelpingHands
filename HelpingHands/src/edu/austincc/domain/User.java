@@ -2,6 +2,7 @@ package edu.austincc.domain;
 
 import java.util.Date;
 
+
 public class User {	
 	Integer	userId;
 	String	email;

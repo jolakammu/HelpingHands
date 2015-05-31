@@ -17,16 +17,16 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.jsp">Home<span class="sr-only">(current)</span></a></li>
-        <!-- <li><a href="donate.jsp">Donate</a></li> -->
+        <!-- <li><a href="DonateServlet">Donate</a></li> -->
         <c:choose>
         	<c:when test="${role == 'ADMIN'}">
         		<li><a href="VolunteeringListServlet">Volunteering List</a></li>
         	</c:when>
         	<c:otherwise>
-        		<li><a href="volunteer.jsp">Volunteering List</a></li>
+        		<li><a href="VolunteeringListServlet">Volunteering List</a></li>
 			</c:otherwise>
 		</c:choose>			        		 		
-        <!-- <li><a href="applyforhelp.jsp">Apply for help</a></li> -->
+        <!-- <li><a href="WebContent/WEB_INF/applyforhelp.jsp">Apply for help</a></li> -->
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -38,8 +38,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">more... <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="siteindex.jsp">FAQs</a></li>
-            <li><a href="siteindex.jsp">Site Index</a></li>
+            <li><a href="/WebContent/WEB_INF/siteindex.jsp">FAQs</a></li>
+            <li><a href="/WebContent/WEB_INF/siteindex.jsp">Site Index</a></li>
             <li><a href="#">Contact us</a></li>
             <li class="divider"></li>
             <li><a href="#">About</a></li>
@@ -51,9 +51,9 @@
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin Utilities<span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
-	            <li><a href="volunteerCSV.jsp">Upload Volunteering CSV</a></li>
-	            <li><a href="siteindex.jsp">User Maintenance</a></li>
-	            <li><a href="siteindex.jsp">More..</a></li>
+	            <li><a href="LoadVolunteerItemsServlet">Upload Volunteering CSV</a></li>
+	            <li><a href="/WEB-INF/siteindex.jsp">User Maintenance</a></li>
+	            <li><a href="/WEB-INF/siteindex.jsp">More..</a></li>
 	            <li>${role}</li>
 	          </ul>
 	        </li>
@@ -62,8 +62,8 @@
       
       <ul class="nav navbar-nav navbar-right">
       	<c:if test="${isLoggedIn == false or (empty isLoggedIn) }">
-			<li><a href="signin.jsp">Sign-In</a></li>
-			<li><a href="SignupServlet">Sign-Up</a></li>	
+			<li><a href="LoginServlet?nav=Y">Sign-In</a></li>
+			<li><a href="SignupServlet?nav=Y">Sign-Up</a></li>	
 		</c:if>			
 		<c:if test="${isLoggedIn == true }">
 			<li><a href="LogoutServlet">Sign-Out</a></li>	
@@ -74,7 +74,7 @@
   <div class="container-fluid">
 	<c:if test="${isLoggedIn == true }">
 		<ul class="nav navbar-nav navbar-right">
-			<li>Welcome ${userName}</li>
+			<li>Welcome ${userName}<c:if test="${role == 'ADMIN' and isLoggedIn == true}"> (Admin) </c:if></li>
 		</ul>
 	</c:if>
 	</div>

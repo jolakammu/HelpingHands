@@ -41,7 +41,13 @@ public class LoginServlet extends HttpServlet {
     
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-  
+		String nav = request.getParameter("nav");
+		if (nav.equals("Y")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("error", "");
+		}
+    	String url = "/WEB-INF/signin.jsp";
+    	request.getRequestDispatcher(url).forward(request, response);
     
     }
 
@@ -50,10 +56,12 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		
-		String url = "/signin.jsp";
+		String url = "/WEB-INF/signin.jsp";
 		String error = null;
 		HttpSession session = request.getSession();
+		session.setAttribute("error", "");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String remember = request.getParameter("remember") ;
@@ -84,13 +92,11 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("userName", validateUser.getName());
 				session.setAttribute("role", validateUser.getRole());
 				url = "/index.jsp";				
-				//response.sendRedirect(url);
 				response.sendRedirect(request.getContextPath() + url);
 		} else {
 			
 			error = "Invalid login credentials. Please try again.";
 			session.setAttribute("error", error);
-			url = "/signin.jsp";
 			request.getRequestDispatcher(url).forward(request, response);
 		}					
 		

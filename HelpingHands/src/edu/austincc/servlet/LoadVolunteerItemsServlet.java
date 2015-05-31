@@ -48,6 +48,8 @@ public class LoadVolunteerItemsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String url = "/WEB-INF/volunteerCSV.jsp";
+		request.getRequestDispatcher(url).forward(request, response);
 	}
 
 	/**
@@ -55,6 +57,7 @@ public class LoadVolunteerItemsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String url = "/WEB-INF/volunteerCSV.jsp";
 		String filename = request.getParameter("filename") ;
 		String action = request.getParameter("action") ;
 		String delimiter = ",";
@@ -93,6 +96,7 @@ public class LoadVolunteerItemsServlet extends HttpServlet {
 			int volunteertemId = new VolunteerItemsManager(ds).addVolunteerItems(volunteerItems);			
 		}		
 		
+		response.sendRedirect(request.getContextPath() + url);
 		
 	}
 

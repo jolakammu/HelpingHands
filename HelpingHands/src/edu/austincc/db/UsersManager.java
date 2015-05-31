@@ -109,7 +109,6 @@ public class UsersManager {
 			Connection connection;
 			connection = ds.getConnection();
 			ps = connection.prepareStatement("select Coalesce(Max(USER_ID),0) + 1  as USER_ID from app.SE_USER");
-			Date date = new java.sql.Date(3000-12-31);
 			
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
@@ -121,7 +120,7 @@ public class UsersManager {
 			ps.setString(2, user.getEmail());	
 			ps.setString(3, user.getName());
 			ps.setString(4, user.getPassword());
-			ps.setDate(5,(java.sql.Date) date);
+			ps.setDate(5, new java.sql.Date(user.getPasswordExpiry().getTime()));
 			ps.setString(6, user.getRole());
 			ps.setString(7, user.getType());
 			ps.setInt(8, user.getAddressId());
