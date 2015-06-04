@@ -18,15 +18,17 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="index.jsp">Home<span class="sr-only">(current)</span></a></li>
         <!-- <li><a href="DonateServlet">Donate</a></li> -->
-        <c:choose>
-        	<c:when test="${role == 'ADMIN'}">
-        		<li><a href="VolunteeringListServlet">Volunteering List</a></li>
-        	</c:when>
-        	<c:otherwise>
-        		<li><a href="VolunteeringListServlet">Volunteering List</a></li>
-			</c:otherwise>
-		</c:choose>			        		 		
-        <!-- <li><a href="WebContent/WEB_INF/applyforhelp.jsp">Apply for help</a></li> -->
+        <c:if test="${isLoggedIn == true }">
+        	<c:choose>
+        		<c:when test="${role == 'ADMIN'}">
+        			<li><a href="VolunteeringListServlet">Volunteering List</a></li>
+        		</c:when>
+        		<c:otherwise>
+        			<li><a href="VolunteeringSchListServlet">Volunteering List</a></li>
+				</c:otherwise>
+			</c:choose>			        		 		
+        	<!-- <li><a href="WebContent/WEB_INF/applyforhelp.jsp">Apply for help</a></li> -->
+		</c:if>        	
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">

@@ -49,6 +49,11 @@ public class User {
 		this.elecCommuId = elecCommuId;
 	}
 
+	public User(int userId) {
+		super();
+		this.userId = userId;
+	}
+
 	public Integer getUserId() {
 		return userId;
 	}

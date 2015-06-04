@@ -90,6 +90,7 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("user", validateUser);
 				session.setAttribute("isLoggedIn", true); 
 				session.setAttribute("userName", validateUser.getName());
+				session.setAttribute("userId", validateUser.getUserId());
 				session.setAttribute("role", validateUser.getRole());
 				url = "/index.jsp";				
 				response.sendRedirect(request.getContextPath() + url);

@@ -82,6 +82,7 @@
 		</div>      		
     </div>
   </div>
+  <!--  
   <div class="form-group">
   <label for="country" class="col-sm-2 control-label">Purpose</label>
     <div class="col-sm-offset-2 col-sm-10">
@@ -100,6 +101,7 @@
       </div>
     </div>
   </div>	
+  -->
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" value="Sign-Up" id="signup" name="signup" class="btn btn-default">
