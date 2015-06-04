@@ -26,6 +26,9 @@ CREATE TABLE APP.HH_VOLUNTEER_SCH_ITEMS (
 									SIGNED_MAN_HRS   INT NOT NULL
 									
 									)
+									
+
+Insert into APP.HH_VOLUNTEER_SCH_ITEMS (VOLUNTEER_SCH_ITEM_ID,USER_ID ,VOLUNTEER_ITEM_ID,SIGNED_MAN_HRS) values (?,?,?,?);								
 
  select ID,EMAIL_TXT,NAME,PASSWORD_TXT,to_char(PASSWORD_EXPIRY_DT,'MM/DD/YYYY'),ROLE_CD from SE_USER where EMAIL_TXT = 'jolakammu@yahoo.com'
  

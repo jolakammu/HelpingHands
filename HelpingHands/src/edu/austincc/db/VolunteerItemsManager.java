@@ -21,29 +21,6 @@ public class VolunteerItemsManager {
 		this.ds = ds;
 	}
 
-	public int getFilledHrs(int volunteerItemId) {
-		int filledHrs = 0;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		Connection connection;		
-		
-		try {
-			connection = ds.getConnection();
-			ps = connection.prepareStatement("select Coalesce(sum(SIGNED_MAN_HRS),0) as SIGNED_MAN_HRS from app.HH_VOLUNTEER_SCH_ITEMS where VOLUNTEER_ITEM_ID = ?");
-			ps.setInt(1, volunteerItemId);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				filledHrs = Integer.parseInt(rs.getString("SIGNED_MAN_HRS"));
-				
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-		return filledHrs;
-	}
-	
 	
 	public int addVolunteerItems(VolunteerItems volunteerItems) {
 		// TODO Auto-generated method stub
