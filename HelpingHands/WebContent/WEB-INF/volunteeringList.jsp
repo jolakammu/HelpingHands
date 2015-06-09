@@ -17,6 +17,7 @@
 	<div class="table-responsive">
  	<c:forEach items="${vilMap}" var="vilMap">
   		<table class="table">
+  			<!--
   			<c:set var="monthNumber" value="${fn:substring(vilMap.key, 0, 2)}" />
   			<c:set var="yearString" value="${fn:substring(vilMap.key, 2, 20)}" />
   			<c:choose>
@@ -58,8 +59,9 @@
   				</c:when>
 
   			</c:choose>
+  			-->
   			<tr class="active">
-  				<th>${monthString} ${yearString}</th>
+  				<th>${vilMap.key.yearNum} ${vilMap.key.monthName} </th>
   			</tr>
 			<!-- On rows -->
 			
@@ -75,6 +77,7 @@
 			</tr>
 				<c:forEach var="vil" items="${vilMap.value}">
 					<tr>
+						<td class="active"><a href="DeleteVolunteeringSchItem?volunteertemId=${vil.volunteertemId}"><img src="images/delete.jpg" border="0" height="20px" width="20px"></a></td>
   						<td class="active">${vil.orgName}</td>
 	  					<td class="active">${vil.orgCategory}</td>
   						<td class="active">${vil.address.delivery} ${vil.address.city} ${vil.address.state} ${vil.address.country} ${vil.address.zip}</td>
