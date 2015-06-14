@@ -29,6 +29,14 @@
 			</c:choose>			        		 		
         	<!-- <li><a href="WebContent/WEB_INF/applyforhelp.jsp">Apply for help</a></li> -->
 		</c:if>        	
+        <c:if test="${isLoggedIn == true }">
+        	<c:choose>
+        		<c:when test="${role != 'ADMIN'}">
+        			<li><a href="SupportingDocumentServlet">Supporting Documents</a></li>
+        		</c:when>
+			</c:choose>			        		 		
+        	<!-- <li><a href="WebContent/WEB_INF/applyforhelp.jsp">Apply for help</a></li> -->
+		</c:if>        	
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">

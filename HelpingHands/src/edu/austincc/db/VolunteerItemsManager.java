@@ -33,9 +33,9 @@ public class VolunteerItemsManager {
 				ps = connection.prepareStatement("select Coalesce(Max(VOLUNTEER_ITEM_ID),0) + 1 as VOLUNTEER_ITEM_ID from app.HH_VOLUNTEER_ITEMS");
 
 			
-				ResultSet resultSet = ps.executeQuery();
-				while (resultSet.next()) {
-					volunteertemId = Integer.parseInt(resultSet.getString("VOLUNTEER_ITEM_ID"));
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					volunteertemId = Integer.parseInt(rs.getString("VOLUNTEER_ITEM_ID"));
 					
 				}
 				ps = connection.prepareStatement("Insert into app.HH_VOLUNTEER_ITEMS(VOLUNTEER_ITEM_ID, ORG_NAME,ORG_CATEGORY,WORK_DESC,MAN_HRS,WORK_BEGIN_DT,ADDRESS_ID,ELEC_COMMU_ID) values (?,?,?,?,?,?,?,?)");
@@ -52,6 +52,7 @@ public class VolunteerItemsManager {
 			ps.executeUpdate();
 			ps.close();
 			connection.close();
+			rs.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,6 +82,7 @@ public class VolunteerItemsManager {
 							rs.getDate("WORK_BEGIN_DT"),Integer.parseInt(rs.getString("ADDRESS_ID")),Integer.parseInt(rs.getString("ELEC_COMMU_ID")),address,elecCommu));
 			}	
 			ps.close();
+			rs.close();
 			connection.close();
 			
 		} catch (SQLException e) {

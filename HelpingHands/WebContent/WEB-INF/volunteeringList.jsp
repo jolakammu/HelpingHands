@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -17,51 +16,8 @@
 	<div class="table-responsive">
  	<c:forEach items="${vilMap}" var="vilMap">
   		<table class="table">
-  			<!--
-  			<c:set var="monthNumber" value="${fn:substring(vilMap.key, 0, 2)}" />
-  			<c:set var="yearString" value="${fn:substring(vilMap.key, 2, 20)}" />
-  			<c:choose>
-  				<c:when test="${monthNumber=='01'}">
-  					<c:set var="monthString" value="January" />
-  				</c:when>
-  				<c:when test="${monthNumber=='02'}">
-  					<c:set var="monthString" value="February" />
-  				</c:when>
-  				<c:when test="${monthNumber=='03'}">
-  					<c:set var="monthString" value="March" />
-  				</c:when>
-  				<c:when test="${monthNumber=='04'}">
-  					<c:set var="monthString" value="April" />
-  				</c:when>
-  				<c:when test="${monthNumber=='05'}">
-  					<c:set var="monthString" value="May" />
-  				</c:when>
-  				<c:when test="${monthNumber=='06'}">
-  					<c:set var="monthString" value="June" />
-  				</c:when>
-  				<c:when test="${monthNumber=='07'}">
-  					<c:set var="monthString" value="July" />
-  				</c:when>
-  				<c:when test="${monthNumber=='08'}">
-  					<c:set var="monthString" value="August" />
-  				</c:when>
-  				<c:when test="${monthNumber=='09'}">
-  					<c:set var="monthString" value="September" />
-  				</c:when>
-  				<c:when test="${monthNumber=='10'}">
-  					<c:set var="monthString" value="October" />
-  				</c:when>
-  				<c:when test="${monthNumber=='11'}">
-  					<c:set var="monthString" value="November" />
-  				</c:when>
-  				<c:when test="${monthNumber=='12'}">
-  					<c:set var="monthString" value="December" />
-  				</c:when>
-
-  			</c:choose>
-  			-->
   			<tr class="active">
-  				<th>${vilMap.key.yearNum} ${vilMap.key.monthName} </th>
+  				<th>${vilMap.key.yearNum} ${vilMap.key.monthName}</th>
   			</tr>
 			<!-- On rows -->
 			

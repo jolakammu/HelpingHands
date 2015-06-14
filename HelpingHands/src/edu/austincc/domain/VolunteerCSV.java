@@ -1,17 +1,17 @@
 package edu.austincc.domain;
 
 public class VolunteerCSV {
-	String OrgName;
-	String OrgCategory; 
-	String WorkDesc;
-	String ManHrs;
-	String WorkBeginDtTime;
-	String orgDelivery;
-	String orgCity;
-	String orgState;
-	String orgCountry;
-	String orgzip;
-	String orgPhone;
+	private String OrgName;
+	private String OrgCategory; 
+	private String WorkDesc;
+	private String ManHrs;
+	private String WorkBeginDtTime;
+	private String orgDelivery;
+	private String orgCity;
+	private String orgState;
+	private String orgCountry;
+	private String orgzip;
+	private String orgPhone;
 	
 	public VolunteerCSV(String orgName, String orgCategory, String workDesc,
 			String manHrs, String workBeginDtTime, String orgDelivery,

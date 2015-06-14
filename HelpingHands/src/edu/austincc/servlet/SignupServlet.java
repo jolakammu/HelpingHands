@@ -1,6 +1,9 @@
 package edu.austincc.servlet;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,18 +12,22 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 import edu.austincc.db.AddressManager;
+import edu.austincc.db.Documentmanager;
 import edu.austincc.db.ElecCommuManager;
 import edu.austincc.db.GenCdManager;
 import edu.austincc.db.UsersManager;
 import edu.austincc.domain.Address;
+import edu.austincc.domain.Document;
 import edu.austincc.domain.ElecCommu;
 import edu.austincc.domain.GenCodes;
 import edu.austincc.domain.User;
@@ -138,7 +145,33 @@ public class SignupServlet extends HttpServlet {
 				session.setAttribute("userName", name);
 				session.setAttribute("role", "USER");				
 				url = "/index.jsp";
-				response.sendRedirect(request.getContextPath() + url);
+				
+				// Upload supporting Documents	
+				int parentTableId = (int) session.getAttribute("userId");
+				String userName = (String) session.getAttribute("userName");
+				String parentTableName = "SE_USER";
+				boolean success = false;
+
+				InputStream inputStream = null; // input stream of the upload file
+		 	
+				BufferedReader bufferedReader = null;
+				FileReader fileReader = null;
+				String fileName = request.getParameter("filename") ;
+				
+				//fileReader = new FileReader(fileName);
+				//bufferedReader = new BufferedReader(fileReader);
+				
+		        Part file = request.getPart("filename");
+		        if (bufferedReader != null) {
+		            inputStream =  file.getInputStream();	 
+		            fileName = file.getName();
+		            cal = Calendar.getInstance(); 
+		            Date createDate = cal.getTime();
+
+		            Document document = new Document(0,file.getName(),file.getContentType(),null,userName,createDate,parentTableId,parentTableName);
+		            success = new Documentmanager(ds).addDocuemnt(document, inputStream);
+		        }
+
 			}
 		} else {	
 			if (validatedUser != null && validatedUser.getUserId() > 0) {

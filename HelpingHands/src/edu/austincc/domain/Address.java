@@ -2,12 +2,12 @@ package edu.austincc.domain;
 
 public class Address {
 	
-	Integer addressId;
-	String delivery;
-	String city;
-	String state;
-	String country;
-	String zip;
+	private Integer addressId;
+	private String delivery;
+	private String city;
+	private String state;
+	private String country;
+	private String zip;
 	
 	public Address(Integer addressId, String delivery, String city, String state,
 			String country, String zip) {

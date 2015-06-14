@@ -4,16 +4,16 @@ import java.util.Date;
 
 public class VolunteerItems {
 
-	int volunteertemId; 
-	String OrgName;
-	String OrgCategory; 
-	String WorkDesc;
-	int ManHrs;
-	Date WorkBeginDtTime;
-	int	addressId;
-	int elecCommuId;	
-	Address address;
-	ElecCommu elecCommu;
+	private int volunteertemId; 
+	private String OrgName;
+	private String OrgCategory; 
+	private String WorkDesc;
+	private int ManHrs;
+	private Date WorkBeginDtTime;
+	private int	addressId;
+	private int elecCommuId;	
+	private Address address;
+	private ElecCommu elecCommu;
 	
 	
 	public VolunteerItems(int volunteertemId, String orgName,

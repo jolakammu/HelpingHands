@@ -4,15 +4,15 @@ import java.util.Date;
 
 
 public class User {	
-	Integer	userId;
-	String	email;
-	String	name;
-	String	password;
-	Date 	passwordExpiry;
-	String	role;
-	String	type;
-	Integer		addressId;
-	Integer     elecCommuId;
+	private Integer	userId;
+	private String	email;
+	private String	name;
+	private String	password;
+	private Date 	passwordExpiry;
+	private String	role;
+	private String	type;
+	private Integer		addressId;
+	private Integer     elecCommuId;
 	//Constructors
 		public User(String email) {
 			super();

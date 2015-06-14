@@ -65,7 +65,13 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String remember = request.getParameter("remember") ;
-		User validateUser = new UsersManager(ds).getUser(email, password);
+		User validateUser = null;;
+		try {
+			validateUser = new UsersManager(ds).getUser(email, password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			error = "Connection Refused";
+		}
 
 		if (remember != null) {
 			Cookie loginEmailCookie = new Cookie("email", email);

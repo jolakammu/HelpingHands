@@ -14,7 +14,7 @@ public class ReadVolunteerCSV {
 	
 	public ArrayList<VolunteerCSV> readVolunteerItems (String fileName, String delimiter) {
 		
-		BufferedReader bufferedReaderr = null;
+		BufferedReader bufferedReader = null;
 		FileReader fileReader = null;
 		String data = "";
 		ArrayList<VolunteerCSV> volunteerItems = new ArrayList<VolunteerCSV>(); 
@@ -22,8 +22,8 @@ public class ReadVolunteerCSV {
 		try {
 	 
 			fileReader = new FileReader(fileName);
-			bufferedReaderr = new BufferedReader(fileReader);
-			while ((data = bufferedReaderr.readLine()) != null) {
+			bufferedReader = new BufferedReader(fileReader);
+			while ((data = bufferedReader.readLine()) != null) {
 	 
 			        // use comma as separator
 				String[] stringData = data.split(delimiter);
@@ -36,9 +36,9 @@ public class ReadVolunteerCSV {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (bufferedReaderr != null) {
+			if (bufferedReader != null) {
 				try {
-					bufferedReaderr.close();
+					bufferedReader.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

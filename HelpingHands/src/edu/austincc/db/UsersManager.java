@@ -1,5 +1,6 @@
 package edu.austincc.db;
 
+import java.rmi.ConnectException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,9 +40,6 @@ public class UsersManager {
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				//DateFormat df = new SimpleDateFormat("MM/DD/YYYY");
-				//String dateString = resultSet.getString("PASSWORD_EXPIRY_DT");
-				//Date passwordExpiryDate = df.parse(dateString);
 				
 				validatedUser = new User( Integer.parseInt(resultSet.getString("USER_ID")),
 									resultSet.getString("EMAIL_TXT"),
@@ -55,11 +53,10 @@ public class UsersManager {
 			resultSet.close();
 			ps.close();
 			connection.close();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return validatedUser;
 	}
 	

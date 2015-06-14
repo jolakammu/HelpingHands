@@ -2,8 +2,8 @@ package edu.austincc.domain;
 
 public class GenCodes {
 	
-	String genCd;
-	String name;
+	private String genCd;
+	private String name;
 	
 		
 	public GenCodes(String genCd, String name) {

@@ -22,6 +22,7 @@ import edu.austincc.db.VolunteerItemsManager;
 import edu.austincc.db.VolunteerSchitemsManager;
 import edu.austincc.domain.VolunteerItems;
 import edu.austincc.domain.VolunteerSchItem;
+import edu.austincc.utils.DateYearMonth;
 
 /**
  * Servlet implementation class VolunteeringSchListServlet
@@ -54,20 +55,23 @@ public class VolunteeringSchListServlet extends HttpServlet {
 		//Display the selected opportunities
 		ArrayList<VolunteerSchItem> vsilArray = new VolunteerSchitemsManager(ds).listVolunteerSchItems(userId);  
 		
-		Map<String,List<VolunteerSchItem>> vsilMap = new TreeMap();
+		Map<DateYearMonth,List<VolunteerSchItem>> vsilMap = new TreeMap();
 		
 		HashMap<Integer, Integer> filledHrsSchMap = new HashMap<Integer,Integer>();
 			
 		if (!(vsilArray==null)) {		
 			DateFormat yDate = new SimpleDateFormat("yyy");
 			DateFormat mDate = new SimpleDateFormat("MM");
+			DateFormat MonthName = new SimpleDateFormat("MMMM");
 			String lastyearMonth = null;
 			String yearMonth     = null;		
+			DateYearMonth dateYearMonth = null;
 			List<VolunteerSchItem> vsilList = null;
 			VolunteerSchItem dupVolunteerItems = null;
 			for (VolunteerSchItem volunteerSchItems : vsilArray) {
 				dupVolunteerItems = volunteerSchItems;
 				yearMonth = mDate.format(volunteerSchItems.getVolunteerItems().getWorkBeginDtTime()) + ' ' + yDate.format(volunteerSchItems.getVolunteerItems().getWorkBeginDtTime()) ;
+				dateYearMonth = new DateYearMonth((int) Integer.parseInt(mDate.format(volunteerSchItems.getVolunteerItems().getWorkBeginDtTime())),(int) Integer.parseInt(yDate.format(volunteerSchItems.getVolunteerItems().getWorkBeginDtTime())),MonthName.format(volunteerSchItems.getVolunteerItems().getWorkBeginDtTime()),volunteerSchItems.getVolunteerItems().getWorkBeginDtTime());
 				if (yearMonth.equals(lastyearMonth) || lastyearMonth == null) {
 					if (lastyearMonth == null) {
 						vsilList = new ArrayList<VolunteerSchItem>();
@@ -76,7 +80,7 @@ public class VolunteeringSchListServlet extends HttpServlet {
 					filledHrsSchMap.put(volunteerSchItems.getVolunteerItems().getVolunteertemId(), new VolunteerSchitemsManager(ds).getFilledHrs(volunteerSchItems.getVolunteerItems().getVolunteertemId()));
 				} else {
 					if (!(lastyearMonth == null)) {
-						vsilMap.put(lastyearMonth, vsilList);
+						vsilMap.put(dateYearMonth, vsilList);
 						vsilList = new ArrayList<VolunteerSchItem>();
 						vsilList.add(volunteerSchItems);
 						//filledHrsSchMap.put(volunteerSchItems.getVolunteerItems().getVolunteertemId(), new VolunteerSchitemsManager(ds).getFilledHrs(volunteerSchItems.getVolunteerItems().getVolunteertemId()));
@@ -86,29 +90,34 @@ public class VolunteeringSchListServlet extends HttpServlet {
 			}			
 			//vilList.add(dupVolunteerItems);
 			if (vsilList != null) {
-				vsilMap.put(yearMonth, vsilList);
+				vsilMap.put(dateYearMonth, vsilList);
 			}
 			
 		}	
 		request.setAttribute("vsilMap", vsilMap);
 		request.setAttribute("filledHrsSchMap", filledHrsSchMap);
-		//Display the available Opportunities
+
 		
+		//Display the available Opportunities		
 		ArrayList<VolunteerItems> vilArray = new VolunteerItemsManager(ds).listVolunteerItems();		
-		Map<String,List<VolunteerItems>> vilMap = new TreeMap();
+		Map<DateYearMonth,List<VolunteerItems>> vilMap = new TreeMap();
 		HashMap<Integer, Integer> filledHrsMap = new HashMap<Integer,Integer>();
 
 
 		if (!(vilArray==null)) {		
 			DateFormat yDate = new SimpleDateFormat("yyy");
 			DateFormat mDate = new SimpleDateFormat("MM");
+			DateFormat MonthName = new SimpleDateFormat("MMMM");
+
 			String lastyearMonth = null;
-			String yearMonth     = null;		
+			String yearMonth     = null;
+			DateYearMonth dateYearMonth = null;			
 			List<VolunteerItems> vilList = null;
 			VolunteerItems dupVolunteerItems = null;
 			for (VolunteerItems volunteerItems : vilArray) {
 				dupVolunteerItems = volunteerItems;
 				yearMonth = mDate.format(volunteerItems.getWorkBeginDtTime()) + ' ' + yDate.format(volunteerItems.getWorkBeginDtTime()) ;
+				dateYearMonth = new DateYearMonth((int) Integer.parseInt(mDate.format(volunteerItems.getWorkBeginDtTime())),(int) Integer.parseInt(yDate.format(volunteerItems.getWorkBeginDtTime())),MonthName.format(volunteerItems.getWorkBeginDtTime()),volunteerItems.getWorkBeginDtTime());				
 				if (yearMonth.equals(lastyearMonth) || lastyearMonth == null) {
 					if (lastyearMonth == null) {
 						vilList = new ArrayList<VolunteerItems>();
@@ -117,7 +126,7 @@ public class VolunteeringSchListServlet extends HttpServlet {
 					filledHrsMap.put(volunteerItems.getVolunteertemId(), new VolunteerSchitemsManager(ds).getFilledHrs(volunteerItems.getVolunteertemId()));
 				} else {
 					if (!(lastyearMonth == null)) {
-						vilMap.put(lastyearMonth, vilList);
+						vilMap.put(dateYearMonth, vilList);
 						vilList = new ArrayList<VolunteerItems>();
 						vilList.add(volunteerItems);
 						filledHrsMap.put(volunteerItems.getVolunteertemId(), new VolunteerSchitemsManager(ds).getFilledHrs(volunteerItems.getVolunteertemId()));
@@ -126,7 +135,7 @@ public class VolunteeringSchListServlet extends HttpServlet {
 				lastyearMonth = yearMonth;			
 			}			
 			//vilList.add(dupVolunteerItems);
-			vilMap.put(yearMonth, vilList);
+			vilMap.put(dateYearMonth, vilList);
 			request.setAttribute("filledHrsMap", filledHrsMap);
 		}	
 		request.setAttribute("vilMap", vilMap);

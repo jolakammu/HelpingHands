@@ -2,10 +2,10 @@ package edu.austincc.domain;
 
 public class VolunteerSchItem {
 	
-	int volunteerSchItemId;
-	int signedManhrs;
-	User user;
-	VolunteerItems volunteerItems;
+	private int volunteerSchItemId;
+	private int signedManhrs;
+	private User user;
+	private VolunteerItems volunteerItems;
 	
 	public VolunteerSchItem(int volunteerSchItemId, int signedManhrs,
 			User user, VolunteerItems volunteerItems) {
