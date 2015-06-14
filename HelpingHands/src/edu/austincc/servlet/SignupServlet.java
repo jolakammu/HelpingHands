@@ -13,6 +13,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,7 @@ import edu.austincc.domain.User;
  * Servlet implementation class SignupServlet
  */
 @WebServlet({ "/SignupServlet", "/signup" })
+@MultipartConfig(maxFileSize = 16177215)
 public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -65,7 +67,7 @@ public class SignupServlet extends HttpServlet {
 	private void showForm(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		
 		String nav = request.getParameter("nav");
-		if (nav.equals("Y")) {
+		if (nav != null && nav.equals("Y")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("error", "");
 			session.setAttribute("email", "");
@@ -124,6 +126,9 @@ public class SignupServlet extends HttpServlet {
 		//DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 		Date  passwordExpiry= (cal.getTime());		
 		
+		if (password == null ||  password1 == null ) {
+			error = "Password and Pasword confimation can not be spaces";
+		}
 		if (password.equals(password1)) {	
 			validatedUser = new UsersManager(ds).getUser(email);			
 		} else {
@@ -143,9 +148,8 @@ public class SignupServlet extends HttpServlet {
 			if (userId > 0) {
 				session.setAttribute("isLoggedIn", true); 
 				session.setAttribute("userName", name);
+				session.setAttribute("userId", userId);
 				session.setAttribute("role", "USER");				
-				url = "/index.jsp";
-				
 				// Upload supporting Documents	
 				int parentTableId = (int) session.getAttribute("userId");
 				String userName = (String) session.getAttribute("userName");
@@ -153,25 +157,17 @@ public class SignupServlet extends HttpServlet {
 				boolean success = false;
 
 				InputStream inputStream = null; // input stream of the upload file
-		 	
-				BufferedReader bufferedReader = null;
-				FileReader fileReader = null;
-				String fileName = request.getParameter("filename") ;
-				
-				//fileReader = new FileReader(fileName);
-				//bufferedReader = new BufferedReader(fileReader);
-				
+		 								
 		        Part file = request.getPart("filename");
-		        if (bufferedReader != null) {
+		        if (file != null) {
 		            inputStream =  file.getInputStream();	 
-		            fileName = file.getName();
 		            cal = Calendar.getInstance(); 
 		            Date createDate = cal.getTime();
 
 		            Document document = new Document(0,file.getName(),file.getContentType(),null,userName,createDate,parentTableId,parentTableName);
 		            success = new Documentmanager(ds).addDocuemnt(document, inputStream);
-		        }
-
+		        }		        
+		        response.sendRedirect("index.jsp?signupSuccess=Y");
 			}
 		} else {	
 			if (validatedUser != null && validatedUser.getUserId() > 0) {

@@ -33,15 +33,15 @@
 			</tr>
 				<c:forEach var="vil" items="${vilMap.value}">
 					<tr>
-						<td class="active"><a href="DeleteVolunteeringSchItem?volunteertemId=${vil.volunteertemId}"><img src="images/delete.jpg" border="0" height="20px" width="20px"></a></td>
-  						<td class="active">${vil.orgName}</td>
-	  					<td class="active">${vil.orgCategory}</td>
-  						<td class="active">${vil.address.delivery} ${vil.address.city} ${vil.address.state} ${vil.address.country} ${vil.address.zip}</td>
-  						<td class="active">${vil.elecCommu.elecCommuNum}</td>
-  						<td class="active">${vil.workBeginDtTime}</td>
-  						<td class="active">${vil.manHrs}</td>
-  						<td class="active"><c:out value="${filledHrsMap[vil.volunteertemId]}"/></td>
-	  					<td class="active"><c:out value="${vil.manHrs - filledHrsMap[vil.volunteertemId]}"/></td>
+						<td><a href="DeleteVolunteeringSchItem?volunteertemId=${vil.volunteertemId}"><img src="images/delete.jpg" border="0" height="20px" width="20px"></a></td>
+  						<td>${vil.orgName}</td>
+	  					<td>${vil.orgCategory}</td>
+  						<td>${vil.address.delivery} ${vil.address.city} ${vil.address.state} ${vil.address.country} ${vil.address.zip}</td>
+  						<td>${vil.elecCommu.elecCommuNum}</td>
+  						<td>${vil.workBeginDtTime}</td>
+  						<td>${vil.manHrs}</td>
+  						<td><c:out value="${filledHrsMap[vil.volunteertemId]}"/></td>
+	  					<td><c:out value="${vil.manHrs - filledHrsMap[vil.volunteertemId]}"/></td>
 					</tr>
 				</c:forEach>					  						
 			</table>

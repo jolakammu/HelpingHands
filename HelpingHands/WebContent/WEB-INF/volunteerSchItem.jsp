@@ -24,7 +24,7 @@
   			</tr>
 			<!-- On rows -->
 			
-			<tr class="active">
+			<tr>
 				<th>&nbsp;</th>
 				<th>Organization Name</th>
 				<th>Category</th>
@@ -36,13 +36,13 @@
 			<!-- On cells (`td` or `th`) -->
 				<c:forEach var="vil" items="${vsilMap.value}">
 					<tr>
-  						<td class="active"><a href="DeleteVolunteeringSchItem?volunteerSchItemId=${vil.volunteerSchItemId}"><img src="images/delete.jpg" border="0" height="20px" width="20px"></a></td>
-  						<td class="active">${vil.volunteerItems.orgName} ${vil.volunteerSchItemId}</td>
-	  					<td class="active">${vil.volunteerItems.orgCategory}</td>
-  						<td class="active">${vil.volunteerItems.address.delivery} ${vil.volunteerItems.address.city} ${vil.volunteerItems.address.state} ${vil.volunteerItems.address.country} ${vil.volunteerItems.address.zip}</td>
-  						<td class="active">${vil.volunteerItems.elecCommu.elecCommuNum}</td>
-  						<td class="active">${vil.volunteerItems.workBeginDtTime}</td>
-  						<td class="active">${vil.signedManhrs}</td>
+  						<td><a href="DeleteVolunteeringSchItem?volunteerSchItemId=${vil.volunteerSchItemId}"><img src="images/delete.jpg" border="0" height="20px" width="20px"></a></td>
+  						<td>${vil.volunteerItems.orgName} ${vil.volunteerSchItemId}</td>
+	  					<td>${vil.volunteerItems.orgCategory}</td>
+  						<td>${vil.volunteerItems.address.delivery} ${vil.volunteerItems.address.city} ${vil.volunteerItems.address.state} ${vil.volunteerItems.address.country} ${vil.volunteerItems.address.zip}</td>
+  						<td>${vil.volunteerItems.elecCommu.elecCommuNum}</td>
+  						<td>${vil.volunteerItems.workBeginDtTime}</td>
+  						<td>${vil.signedManhrs}</td>
 					</tr>
 				</c:forEach>					  						
 			</table>
@@ -58,7 +58,7 @@
   			<tr class="active">
   				<th>${vilMap.key.yearNum} ${vilMap.key.monthName}</th>
   			</tr>
-			<tr class="active">
+			<tr  class="active">
 				<th>Organization Name</th>
 				<th>Category</th>
 				<th>Address</th>
@@ -71,17 +71,17 @@
 			</tr>
 					<c:forEach var="vil" items="${vilMap.value}">
 						<tr>
-							<td class="active">${vil.orgName}</td>
-							<td class="active">${vil.orgCategory}</td>
-							<td class="active">${vil.address.delivery}
+							<td>${vil.orgName}</td>
+							<td>${vil.orgCategory}</td>
+							<td>${vil.address.delivery}
 								${vil.address.city} ${vil.address.state} ${vil.address.country}
 								${vil.address.zip}</td>
-							<td class="active">${vil.elecCommu.elecCommuNum}</td>
-							<td class="active">${vil.workBeginDtTime}</td>
-							<td class="active">${vil.manHrs}</td>
-							<td class="active"><c:out
+							<td>${vil.elecCommu.elecCommuNum}</td>
+							<td>${vil.workBeginDtTime}</td>
+							<td>${vil.manHrs}</td>
+							<td><c:out
 									value="${filledHrsMap[vil.volunteertemId]}" /></td>
-							<td class="active"><c:out
+							<td><c:out
 									value="${vil.manHrs - filledHrsMap[vil.volunteertemId]}" /></td>
 							<td><select name="${vil.volunteertemId}"
 								id="${vil.volunteertemId}">

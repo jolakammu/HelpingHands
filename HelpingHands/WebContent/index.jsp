@@ -14,6 +14,12 @@
 <body bgcolor="lightgrey">
 	<c:import url="/WEB-INF/navbar.jsp"></c:import> 	
 	<h1 class="text-center">Helping Hands</h1>
+	<c:if test="${param.signupSuccess != null}">
+		<div align="center">
+			<h4>Sign-up Successful</h4>
+			<h4>Welcome to Helping Hands ${userName}</h4>
+		</div>
+	</c:if>
 	<div align="center">
 		<h3>Overview</h3>	
 		<h3>Our Family</h3>

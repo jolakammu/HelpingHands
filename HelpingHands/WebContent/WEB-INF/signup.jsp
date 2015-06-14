@@ -14,7 +14,7 @@
 <body bgcolor="lightgrey">
 <c:import url="navbar.jsp"></c:import> 
 <h2 class="text-center">Sign-Up Page</h2>
-<form action="SignupServlet" method="post"  class="form-horizontal">
+<form action="SignupServlet"  enctype="multipart/form-data" method="post"  class="form-horizontal">
   <c:if test="${not empty error}">
   	<div class="alert alert-danger" role="alert">${error}</div>
   </c:if>	
@@ -86,7 +86,7 @@
   <div class="form-group">
   	<label for="filename" class="col-sm-2 control-label">Supporting Documents</label>
     <div class="col-sm-8">
-    	<input type="file" class="form-control" id="filename"  name="filename" placeholder="choose file" maxlength="254" required="required" title="Select a File">
+    	<input type="file" class="form-control" id="filename"  name="filename" placeholder="choose file" maxlength="254" title="Select a File">
     </div>
   </div>
 
