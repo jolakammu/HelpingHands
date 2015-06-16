@@ -46,7 +46,22 @@
 					</tr>
 				</c:forEach>					  						
 			</table>
-		</c:forEach>			
+		</c:forEach>	
+		<c:if test="${empty vsilMap}">
+			<table class="table">
+			<tr>
+				<th>Organization Name</th>
+				<th>Category</th>
+				<th>Address</th>
+				<th>Phone</th>
+				<th>Start Date & Time</th>
+				<th>Scheduled hrs.</th>
+			</tr>
+			<tr>
+				<td colspan="6">Volunteer Opportunities not Scheduled</td>
+			</tr>	
+			</table>	
+		</c:if>		
 	</div>
 
 	<h4>Available</h4>
@@ -96,13 +111,30 @@
 						</tr>
 					</c:forEach>
 				</table>
-		</c:forEach>			
- 	    <div class="form-group">
-    		<div class="col-sm-offset-2 col-sm-10">
-				<input type="submit" value="Save" id="Save" name="Save" class="btn btn-default">
-				<input type="reset"  value="Clear" id="Clear" name="Clear" class="btn btn-default">
-    		</div>
-  		</div>
+		</c:forEach>	
+		<c:if test="${empty vilMap}">
+			<table class="table">
+			<tr>
+				<th>Organization Name</th>
+				<th>Category</th>
+				<th>Address</th>
+				<th>Phone</th>
+				<th>Start Date & Time</th>
+				<th>Scheduled hrs.</th>
+			</tr>
+			<tr>
+				<td colspan="6">Volunteer Opportunities not available</td>
+			</tr>	
+			</table>	
+		</c:if>		
+		<c:if test="${empty vilMap}">				
+ 	    	<div class="form-group">
+    			<div class="col-sm-offset-5 col-sm-10">
+					<input type="submit" value="Save" id="Save" name="Save" class="btn btn-default">
+					<input type="reset"  value="Clear" id="Clear" name="Clear" class="btn btn-default">
+    			</div>
+  			</div>
+		</c:if>  			
 	</form>					  						
 	</div>
 <myTags:Footer/>

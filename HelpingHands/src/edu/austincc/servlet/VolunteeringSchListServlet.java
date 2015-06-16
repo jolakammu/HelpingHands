@@ -135,7 +135,9 @@ public class VolunteeringSchListServlet extends HttpServlet {
 				lastyearMonth = yearMonth;			
 			}			
 			//vilList.add(dupVolunteerItems);
-			vilMap.put(dateYearMonth, vilList);
+			if (vilList != null) {
+				vilMap.put(dateYearMonth, vilList);
+			}		
 			request.setAttribute("filledHrsMap", filledHrsMap);
 		}	
 		request.setAttribute("vilMap", vilMap);

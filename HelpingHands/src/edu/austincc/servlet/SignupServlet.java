@@ -156,8 +156,7 @@ public class SignupServlet extends HttpServlet {
 				String parentTableName = "SE_USER";
 				boolean success = false;
 
-				InputStream inputStream = null; // input stream of the upload file
-		 								
+				InputStream inputStream = null; // input stream of the upload file		 								
 		        Part file = request.getPart("filename");
 		        if (file != null) {
 		            inputStream =  file.getInputStream();	 

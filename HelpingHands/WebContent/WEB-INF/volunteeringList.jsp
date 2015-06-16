@@ -11,26 +11,25 @@
 <title>Helping Hands</title>
 </head>
 <body bgcolor="lightgrey">
+vil map = ${vilMap}
 	<c:import url="/WEB-INF/navbar.jsp"></c:import> 	
 	<h2 class="text-center">Volunteer Opportunities</h2>
 	<div class="table-responsive">
- 	<c:forEach items="${vilMap}" var="vilMap">
-  		<table class="table">
-  			<tr class="active">
-  				<th>${vilMap.key.yearNum} ${vilMap.key.monthName}</th>
-  			</tr>
-			<!-- On rows -->
-			
-			<tr class="active">
-				<th>Organization Name</th>
-				<th>Category</th>
-				<th>Address</th>
-				<th>Phone</th>
-				<th>Start Date & Time</th>
-				<th>Needed hrs.</th>
-				<th>Filled hrs.</th>
-				<th>Available hrs.</th>
-			</tr>
+ 		<c:forEach items="${vilMap}" var="vilMap">
+  			<table class="table">
+  				<tr class="active">
+  					<th>${vilMap.key.yearNum} ${vilMap.key.monthName}</th>
+  				</tr>
+				<tr class="active">
+					<th>Organization Name</th>
+					<th>Category</th>
+					<th>Address</th>
+					<th>Phone</th>
+					<th>Start Date & Time</th>
+					<th>Needed hrs.</th>
+					<th>Filled hrs.</th>
+					<th>Available hrs.</th>
+				</tr>
 				<c:forEach var="vil" items="${vilMap.value}">
 					<tr>
 						<td><a href="DeleteVolunteeringSchItem?volunteertemId=${vil.volunteertemId}"><img src="images/delete.jpg" border="0" height="20px" width="20px"></a></td>
@@ -45,7 +44,24 @@
 					</tr>
 				</c:forEach>					  						
 			</table>
-		</c:forEach>			
+		</c:forEach>
+		<c:if test="${not empty vilMap}">
+  			<table class="table">
+				<tr class="active">
+					<th>Organization Name</th>
+					<th>Category</th>
+					<th>Address</th>
+					<th>Phone</th>
+					<th>Start Date & Time</th>
+					<th>Needed hrs.</th>
+					<th>Filled hrs.</th>
+					<th>Available hrs.</th>
+				</tr>
+				<tr>
+					<td colspan="8">Volunteer Opportunities not available</td>
+				</tr>
+			</table>				
+		</c:if>			
 	</div>
 <myTags:Footer/>
 </body>
