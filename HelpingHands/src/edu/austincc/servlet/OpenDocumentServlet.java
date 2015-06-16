@@ -62,7 +62,7 @@ public class OpenDocumentServlet extends HttpServlet {
 		response.setBufferSize(DEFAULT_BUFFER_SIZE);
 		response.setHeader("Content-Length", String.valueOf(fileData.length));
 		response.addHeader("Content-Disposition", "attachment; filename=" + fileName + "." + format);
-		response.setContentLength((int) fileName.length());
+		response.setContentLength((int) fileData.length);
 
 
         // Prepare streams.
@@ -71,9 +71,9 @@ public class OpenDocumentServlet extends HttpServlet {
         input = new ByteArrayInputStream(fileData);
         output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
 
-        int length;
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-         while ((length = input.read(buffer)) > 0) {
+        int length;
+		while ((length = input.read(buffer)) > 0) {
         	 output.write(fileData, 0, fileData.length);
          }
 

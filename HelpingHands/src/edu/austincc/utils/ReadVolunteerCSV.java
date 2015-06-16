@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,17 +14,15 @@ import edu.austincc.domain.VolunteerItems;
 
 public class ReadVolunteerCSV {
 	
-	public ArrayList<VolunteerCSV> readVolunteerItems (String fileName, String delimiter) {
+	public ArrayList<VolunteerCSV> readVolunteerItems (InputStream fileasInsputStream, String delimiter) {
 		
 		BufferedReader bufferedReader = null;
-		FileReader fileReader = null;
 		String data = "";
 		ArrayList<VolunteerCSV> volunteerItems = new ArrayList<VolunteerCSV>(); 
 	 
 		try {
 	 
-			fileReader = new FileReader(fileName);
-			bufferedReader = new BufferedReader(fileReader);
+			bufferedReader = new BufferedReader(new InputStreamReader(fileasInsputStream));
 			while ((data = bufferedReader.readLine()) != null) {
 	 
 			        // use comma as separator

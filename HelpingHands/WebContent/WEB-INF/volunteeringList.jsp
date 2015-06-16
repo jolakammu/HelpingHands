@@ -11,7 +11,6 @@
 <title>Helping Hands</title>
 </head>
 <body bgcolor="lightgrey">
-vil map = ${vilMap}
 	<c:import url="/WEB-INF/navbar.jsp"></c:import> 	
 	<h2 class="text-center">Volunteer Opportunities</h2>
 	<div class="table-responsive">

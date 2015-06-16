@@ -3,7 +3,9 @@ package edu.austincc.servlet;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -49,6 +51,7 @@ public class UploadServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = "/SupportingDocumentServlet";
 		HttpSession session = request.getSession();
@@ -62,13 +65,26 @@ public class UploadServlet extends HttpServlet {
         Part file = request.getPart("filename");
         if (file != null) {
             inputStream = file.getInputStream();	 
-            String fileName = file.getName();
+            
+            String fileName = getFileName(file);
             Calendar cal = Calendar.getInstance(); 
             Date createDate = cal.getTime();
-            Document document = new Document(0,file.getName(),file.getContentType(),null,userName,createDate,parentTableId,parentTableName);
+            Document document = new Document(0,fileName,file.getContentType(),null,userName,createDate,parentTableId,parentTableName);
             success = new Documentmanager(ds).addDocuemnt(document, inputStream);
         }
-        response.sendRedirect(request.getContextPath() + url);            
+        response.sendRedirect(request.getContextPath() + url);        
+     
+	}
+
+	private String getFileName(final Part part) {
+		final String partHeader = part.getHeader("content-disposition");
+		for (String content : part.getHeader("content-disposition").split(";")) {
+		    if (content.trim().startsWith("filename")) {
+		        return content.substring(
+		                content.indexOf('=') + 1).trim().replace("\"", "");
+		    }
+		}
+		return partHeader;
 	}
 
 }

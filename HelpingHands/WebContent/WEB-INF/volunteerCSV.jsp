@@ -14,7 +14,7 @@
 <body bgcolor="lightgrey">
 <c:import url="/WEB-INF/navbar.jsp"></c:import> 
 <h2 class="text-center">Upload Volunteering Opportunities CSV file</h2>
-<form action="LoadVolunteerItemsServlet" method="post" class="form-horizontal">
+<form action="LoadVolunteerItemsServlet"  enctype="multipart/form-data"  method="post" class="form-horizontal">
   <c:if test="${not empty error}">
   	<div class="alert alert-danger" role="alert">${error}</div>
   </c:if>	
