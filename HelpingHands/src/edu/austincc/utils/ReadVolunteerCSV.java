@@ -13,24 +13,30 @@ import edu.austincc.domain.VolunteerCSV;
 import edu.austincc.domain.VolunteerItems;
 
 public class ReadVolunteerCSV {
-	
-	public ArrayList<VolunteerCSV> readVolunteerItems (InputStream fileasInsputStream, String delimiter) {
-		
+
+	public ArrayList<VolunteerCSV> readVolunteerItems(
+			InputStream fileasInsputStream, String delimiter) {
+
 		BufferedReader bufferedReader = null;
 		String data = "";
-		ArrayList<VolunteerCSV> volunteerItems = new ArrayList<VolunteerCSV>(); 
-	 
+		ArrayList<VolunteerCSV> volunteerItems = new ArrayList<VolunteerCSV>();
+
 		try {
-	 
-			bufferedReader = new BufferedReader(new InputStreamReader(fileasInsputStream));
+
+			bufferedReader = new BufferedReader(new InputStreamReader(
+					fileasInsputStream));
 			while ((data = bufferedReader.readLine()) != null) {
-	 
-			        // use comma as separator
+
+				// use comma as separator
 				String[] stringData = data.split(delimiter);
-				VolunteerCSV volunteerCSV = new VolunteerCSV(stringData[0],stringData[1],stringData[2],stringData[3],stringData[4],stringData[5],stringData[6],stringData[7],stringData[8],stringData[9],stringData[10]);
+				VolunteerCSV volunteerCSV = new VolunteerCSV(stringData[0],
+						stringData[1], stringData[2], stringData[3],
+						stringData[4], stringData[5], stringData[6],
+						stringData[7], stringData[8], stringData[9],
+						stringData[10]);
 				volunteerItems.add(volunteerCSV);
 			}
-	 
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -43,9 +49,8 @@ public class ReadVolunteerCSV {
 					e.printStackTrace();
 				}
 			}
-	
-			
-		}	
+
+		}
 		return volunteerItems;
 	}
 }

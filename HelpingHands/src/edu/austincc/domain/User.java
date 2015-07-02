@@ -2,38 +2,39 @@ package edu.austincc.domain;
 
 import java.util.Date;
 
+public class User {
+	private Integer userId;
+	private String email;
+	private String name;
+	private String password;
+	private Date passwordExpiry;
+	private String role;
+	private String type;
+	private Integer addressId;
+	private Integer elecCommuId;
 
-public class User {	
-	private Integer	userId;
-	private String	email;
-	private String	name;
-	private String	password;
-	private Date 	passwordExpiry;
-	private String	role;
-	private String	type;
-	private Integer		addressId;
-	private Integer     elecCommuId;
-	//Constructors
-		public User(String email) {
-			super();
-			this.email = email;
-		}
+	// Constructors
+	public User(String email) {
+		super();
+		this.email = email;
+	}
 
-		public User(String email, String password) {
-			super();
-			this.email = email;
-			this.password = password;
-		}
+	public User(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
 
-		public User(Integer userId, String email, String name, String role,String type) {
-			super();
-			this.userId = userId;
-			this.email = email;
-			this.name = name;
-			this.role = role;
-			this.type = type;
-		}	
-	
+	public User(Integer userId, String email, String name, String role,
+			String type) {
+		super();
+		this.userId = userId;
+		this.email = email;
+		this.name = name;
+		this.role = role;
+		this.type = type;
+	}
+
 	public User(Integer userId, String email, String name, String password,
 			Date passwordExpiry, String role, String type, Integer addressId,
 			Integer elecCommuId) {
@@ -134,7 +135,5 @@ public class User {
 				+ ", addressId=" + addressId + ", elecCommuId=" + elecCommuId
 				+ "]";
 	}
-	
-	
-	
+
 }

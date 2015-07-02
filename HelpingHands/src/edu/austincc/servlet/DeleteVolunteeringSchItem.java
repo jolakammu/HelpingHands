@@ -18,23 +18,26 @@ import edu.austincc.db.VolunteerSchitemsManager;
 @WebServlet("/DeleteVolunteeringSchItem")
 public class DeleteVolunteeringSchItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	@Resource(name="jdbc/DB")
+	@Resource(name = "jdbc/DB")
 	DataSource ds;
-          
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteVolunteeringSchItem() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String volunteerSchItemIdStr = request.getParameter("volunteerSchItemId");
+	public DeleteVolunteeringSchItem() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		String volunteerSchItemIdStr = request
+				.getParameter("volunteerSchItemId");
 		if (volunteerSchItemIdStr != null) {
 			int volunteerSchItemId = Integer.parseInt(volunteerSchItemIdStr);
 			VolunteerSchitemsManager vsim = new VolunteerSchitemsManager(ds);
@@ -45,15 +48,18 @@ public class DeleteVolunteeringSchItem extends HttpServlet {
 			if (volunteertemIdStr != null) {
 				int volunteertemId = Integer.parseInt(volunteertemIdStr);
 				VolunteerSchitemsManager vsim = new VolunteerSchitemsManager(ds);
-				//vsim.deleteVolunteeringItemSch(volunteerSchItemId);
+				// vsim.deleteVolunteeringItemSch(volunteerSchItemId);
 				response.sendRedirect("VolunteeringListServlet");
+			}
 		}
-	}
-  
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+	}
 }

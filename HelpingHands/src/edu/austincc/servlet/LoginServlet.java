@@ -19,53 +19,54 @@ import javax.sql.DataSource;
 import edu.austincc.db.UsersManager;
 import edu.austincc.domain.User;
 
- 
-
 /**
  * Servlet implementation class LoginServlet
  */
 @WebServlet({ "/LoginServlet", "/login" })
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	@Resource(name="jdbc/DB")
+
+	@Resource(name = "jdbc/DB")
 	DataSource ds;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String nav = request.getParameter("nav");
 		if (nav.equals("Y")) {
 			HttpSession session = request.getSession();
 			session.setAttribute("error", "");
 		}
-    	String url = "/WEB-INF/signin.jsp";
-    	request.getRequestDispatcher(url).forward(request, response);
-    
-    }
+		String url = "/WEB-INF/signin.jsp";
+		request.setAttribute("servlet", "LoginServlet");
+		request.getRequestDispatcher(url).forward(request, response);
+
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		
 		String url = "/WEB-INF/signin.jsp";
 		String error = null;
 		HttpSession session = request.getSession();
 		session.setAttribute("error", "");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		String remember = request.getParameter("remember") ;
-		User validateUser = null;;
+		String remember = request.getParameter("remember");
+		User validateUser = null;
+		;
 		try {
 			validateUser = new UsersManager(ds).getUser(email, password);
 		} catch (Exception e) {
@@ -90,26 +91,22 @@ public class LoginServlet extends HttpServlet {
 			response.addCookie(rememberCookie);
 
 		}
-		
-		
+
 		if (validateUser != null) {
-				request.setAttribute("user", validateUser);
-				session.setAttribute("isLoggedIn", true); 
-				session.setAttribute("userName", validateUser.getName());
-				session.setAttribute("userId", validateUser.getUserId());
-				session.setAttribute("role", validateUser.getRole());
-				url = "/index.jsp";				
-				response.sendRedirect(request.getContextPath() + url);
+			request.setAttribute("user", validateUser);
+			session.setAttribute("isLoggedIn", true);
+			session.setAttribute("userName", validateUser.getName());
+			session.setAttribute("userId", validateUser.getUserId());
+			session.setAttribute("role", validateUser.getRole());
+			url = "/index.jsp";
+			response.sendRedirect(request.getContextPath() + url);
 		} else {
-			
+
 			error = "Invalid login credentials. Please try again.";
 			session.setAttribute("error", error);
 			request.getRequestDispatcher(url).forward(request, response);
-		}					
-		
-		
-	}
+		}
 
-	
+	}
 
 }

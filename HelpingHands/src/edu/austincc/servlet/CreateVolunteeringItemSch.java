@@ -20,69 +20,80 @@ import edu.austincc.db.VolunteerSchitemsManager;
 @WebServlet("/CreateVolunteeringItemSch")
 public class CreateVolunteeringItemSch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	@Resource(name="jdbc/DB")
+
+	@Resource(name = "jdbc/DB")
 	DataSource ds;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreateVolunteeringItemSch() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CreateVolunteeringItemSch() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userId");
-		
+
 		Enumeration<String> viIdKeys = request.getParameterNames();
 		int volunteeringItemId = 0;
 		int newSignedHrs = 0;
 		int filledHrs = 0;
 		String selectedVolunteeringItemId;
-		int value , lastvalue = 0;
-		   while (viIdKeys.hasMoreElements() )
-		   {
-			   selectedVolunteeringItemId =  (String) viIdKeys.nextElement();
-			   try {
-				volunteeringItemId  = Integer.parseInt(selectedVolunteeringItemId);
+		int value, lastvalue = 0;
+		while (viIdKeys.hasMoreElements()) {
+			selectedVolunteeringItemId = (String) viIdKeys.nextElement();
+			try {
+				volunteeringItemId = Integer
+						.parseInt(selectedVolunteeringItemId);
 			} catch (NumberFormatException e) {
-				volunteeringItemId = 0;	
+				volunteeringItemId = 0;
 			}
-			
+
 			if (volunteeringItemId != 0) {
-				newSignedHrs = Integer.parseInt(request.getParameter(selectedVolunteeringItemId));				
+				newSignedHrs = Integer.parseInt(request
+						.getParameter(selectedVolunteeringItemId));
 				// Get current filled hrs
-				filledHrs = new VolunteerSchitemsManager(ds).getFilledHrs(userId, volunteeringItemId);
-				
+				filledHrs = new VolunteerSchitemsManager(ds).getFilledHrs(
+						userId, volunteeringItemId);
+
 				if (newSignedHrs > 0) {
 					if (filledHrs == 0) {
-						//Create Volunteering Scheduled Item
-						int volunteerSchItemId = new VolunteerSchitemsManager(ds).addVolunteeringItemSch(userId, volunteeringItemId, newSignedHrs);
+						// Create Volunteering Scheduled Item
+						int volunteerSchItemId = new VolunteerSchitemsManager(
+								ds).addVolunteeringItemSch(userId,
+								volunteeringItemId, newSignedHrs);
 					} else {
-						//Update Volunteering Scheduled Item
-						int volunteerSchItemId =   new VolunteerSchitemsManager(ds).getVolunteerSchItemId(userId, volunteeringItemId);
-						volunteerSchItemId = new VolunteerSchitemsManager(ds).updateVolunteeringItemSch(volunteerSchItemId, newSignedHrs);
+						// Update Volunteering Scheduled Item
+						int volunteerSchItemId = new VolunteerSchitemsManager(
+								ds).getVolunteerSchItemId(userId,
+								volunteeringItemId);
+						volunteerSchItemId = new VolunteerSchitemsManager(ds)
+								.updateVolunteeringItemSch(volunteerSchItemId,
+										newSignedHrs + filledHrs);
 					}
-				
+
 				}
 
 			}
-		     
-				
-		   }
-		   response.sendRedirect("VolunteeringSchListServlet");
+
+		}
+		response.sendRedirect("VolunteeringSchListServlet");
 
 	}
 

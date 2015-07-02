@@ -21,39 +21,45 @@ import edu.austincc.domain.Document;
 @WebServlet("/SupportingDocumentServlet")
 public class SupportingDocumentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     
-	@Resource(name="jdbc/DB")
+
+	@Resource(name = "jdbc/DB")
 	DataSource ds;
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SupportingDocumentServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public SupportingDocumentServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String url = "/WEB-INF/supportingDocumentsList.jsp";
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userId");
-		
+
 		ArrayList<Document> documentArray = new ArrayList<Document>();
-		documentArray = new Documentmanager(ds).listDocuments(userId, "SE_USER");
+		documentArray = new Documentmanager(ds)
+				.listDocuments(userId, "SE_USER");
 		if (documentArray != null) {
 			request.setAttribute("documentArray", documentArray);
-		}		
-		getServletContext().getRequestDispatcher(url).forward(request, response);
+		}
+		getServletContext().getRequestDispatcher(url)
+				.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 

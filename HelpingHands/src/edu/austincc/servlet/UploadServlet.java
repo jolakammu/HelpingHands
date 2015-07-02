@@ -21,7 +21,6 @@ import javax.sql.DataSource;
 import edu.austincc.db.Documentmanager;
 import edu.austincc.domain.Document;
 
-
 /**
  * Servlet implementation class UploadServlet
  */
@@ -29,30 +28,34 @@ import edu.austincc.domain.Document;
 @MultipartConfig(maxFileSize = 16177215)
 public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	@Resource(name="jdbc/DB")
+
+	@Resource(name = "jdbc/DB")
 	DataSource ds;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UploadServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public UploadServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String url = "/SupportingDocumentServlet";
 		HttpSession session = request.getSession();
 		int parentTableId = (int) session.getAttribute("userId");
@@ -61,28 +64,31 @@ public class UploadServlet extends HttpServlet {
 		boolean success = false;
 
 		InputStream inputStream = null; // input stream of the upload file
- 	
-        Part file = request.getPart("filename");
-        if (file != null) {
-            inputStream = file.getInputStream();	 
-            
-            String fileName = getFileName(file);
-            Calendar cal = Calendar.getInstance(); 
-            Date createDate = cal.getTime();
-            Document document = new Document(0,fileName,file.getContentType(),null,userName,createDate,parentTableId,parentTableName);
-            success = new Documentmanager(ds).addDocuemnt(document, inputStream);
-        }
-        response.sendRedirect(request.getContextPath() + url);        
-     
+
+		Part file = request.getPart("filename");
+		if (file != null) {
+			inputStream = file.getInputStream();
+
+			String fileName = getFileName(file);
+			Calendar cal = Calendar.getInstance();
+			Date createDate = cal.getTime();
+			Document document = new Document(0, fileName,
+					file.getContentType(), null, userName, createDate,
+					parentTableId, parentTableName);
+			success = new Documentmanager(ds)
+					.addDocuemnt(document, inputStream);
+		}
+		response.sendRedirect(request.getContextPath() + url);
+
 	}
 
 	private String getFileName(final Part part) {
 		final String partHeader = part.getHeader("content-disposition");
 		for (String content : part.getHeader("content-disposition").split(";")) {
-		    if (content.trim().startsWith("filename")) {
-		        return content.substring(
-		                content.indexOf('=') + 1).trim().replace("\"", "");
-		    }
+			if (content.trim().startsWith("filename")) {
+				return content.substring(content.indexOf('=') + 1).trim()
+						.replace("\"", "");
+			}
 		}
 		return partHeader;
 	}

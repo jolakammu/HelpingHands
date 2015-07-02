@@ -1,12 +1,12 @@
 package edu.austincc.domain;
 
-public class ElecCommu {
-	
+public class ElecctronicCommunication {
+
 	private Integer elecCommuId;
 	private String elecCommuTyp;
 	private String elecCommuNum;
 
-	public ElecCommu(Integer elecCommuId, String elecCommuTyp,
+	public ElecctronicCommunication(Integer elecCommuId, String elecCommuTyp,
 			String elecCommuNum) {
 		super();
 		this.elecCommuId = elecCommuId;
@@ -43,7 +43,5 @@ public class ElecCommu {
 		return "ElecCommu [elecCommuId=" + elecCommuId + ", elecCommuTyp="
 				+ elecCommuTyp + ", elecCommuNum=" + elecCommuNum + "]";
 	}
-	
-	
-	
+
 }
