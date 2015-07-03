@@ -16,7 +16,14 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.jsp">Home<span class="sr-only">(current)</span></a></li>
+      <c:choose>
+  	  	<c:when test="${servlet == 'HomeServlet'}">
+        	<li class="active"><a href="HomeServlet">Home<span class="sr-only">(current)</span></a></li>
+		</c:when>
+		<c:otherwise>
+        	<li><a href="HomeServlet">Home<span class="sr-only">(current)</span></a></li>		
+		</c:otherwise>
+	  </c:choose>		        	
         <!-- <li><a href="DonateServlet">Donate</a></li> -->
         <c:if test="${isLoggedIn == true }">
         	<c:choose>
@@ -72,9 +79,23 @@
       
       <ul class="nav navbar-nav navbar-right">
       	<c:if test="${isLoggedIn == false or (empty isLoggedIn) }">
-			<li><a href="LoginServlet?nav=Y">Sign-In</a></li>
-			<li><a href="SignupServlet?nav=Y">Sign-Up</a></li>	
-		</c:if>			
+			<c:choose>
+  				<c:when test="${servlet == 'LoginServlet'}">
+					<li class="active"><a href="LoginServlet?nav=Y">Sign-In</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="LoginServlet?nav=Y">Sign-In</a></li>
+				</c:otherwise>
+			</c:choose>													
+			<c:choose>
+  				<c:when test="${servlet == 'SignupServlet'}">
+					<li class="active"><a href="SignupServlet?nav=Y">Sign-Up</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="SignupServlet?nav=Y">Sign-Up</a></li>
+				</c:otherwise>					
+			</c:choose>
+		</c:if>						
 		<c:if test="${isLoggedIn == true }">
 			<li><a href="LogoutServlet">Sign-Out</a></li>	
 		</c:if>			

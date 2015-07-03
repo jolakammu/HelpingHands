@@ -127,7 +127,7 @@
 			</tr>	
 			</table>	
 		</c:if>		
-		<c:if test="${empty vilMap}">				
+		<c:if test="${not empty vilMap}">				
  	    	<div class="form-group">
     			<div class="col-sm-offset-5 col-sm-10">
 					<input type="submit" value="Save" id="Save" name="Save" class="btn btn-default">

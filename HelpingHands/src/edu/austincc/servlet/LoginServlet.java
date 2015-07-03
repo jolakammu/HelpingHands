@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import javax.sql.DataSource;
 
 import edu.austincc.db.UsersManager;
 import edu.austincc.domain.User;
+import edu.austincc.utils.Owasp;
 
 /**
  * Servlet implementation class LoginServlet
@@ -25,6 +27,7 @@ import edu.austincc.domain.User;
 @WebServlet({ "/LoginServlet", "/login" })
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static int ITERATION_NUMBER = 1000;
 
 	@Resource(name = "jdbc/DB")
 	DataSource ds;
@@ -65,10 +68,21 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String remember = request.getParameter("remember");
+		boolean success = false;
 		User validateUser = null;
 		;
 		try {
-			validateUser = new UsersManager(ds).getUser(email, password);
+			validateUser = new UsersManager(ds).getUser(email);
+			String digest, salt;
+			digest = validateUser.getPassword();
+			salt = validateUser.getSalt();
+			Owasp owasp = new Owasp();
+			byte[] bDigest = owasp.base64ToByte(digest);
+	        byte[] bSalt = owasp.base64ToByte(salt);
+	        byte[] proposedDigest = owasp.getHash(ITERATION_NUMBER, password, bSalt);
+	 		if (Arrays.equals(proposedDigest, bDigest)) {
+				success = true;
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			error = "Connection Refused";
@@ -92,7 +106,7 @@ public class LoginServlet extends HttpServlet {
 
 		}
 
-		if (validateUser != null) {
+		if (success) {
 			request.setAttribute("user", validateUser);
 			session.setAttribute("isLoggedIn", true);
 			session.setAttribute("userName", validateUser.getName());

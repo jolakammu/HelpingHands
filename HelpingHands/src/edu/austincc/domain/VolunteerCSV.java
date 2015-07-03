@@ -1,11 +1,11 @@
 package edu.austincc.domain;
 
 public class VolunteerCSV {
-	private String OrgName;
-	private String OrgCategory;
-	private String WorkDesc;
-	private String ManHrs;
-	private String WorkBeginDtTime;
+	private String orgName;
+	private String orgCategory;
+	private String workDesc;
+	private String manHrs;
+	private String workBeginDtTime;
 	private String orgDelivery;
 	private String orgCity;
 	private String orgState;
@@ -18,11 +18,11 @@ public class VolunteerCSV {
 			String orgCity, String orgState, String orgCountry, String orgzip,
 			String orgPhone) {
 		super();
-		OrgName = orgName;
-		OrgCategory = orgCategory;
-		WorkDesc = workDesc;
-		ManHrs = manHrs;
-		WorkBeginDtTime = workBeginDtTime;
+		this.orgName = orgName;
+		this.orgCategory = orgCategory;
+		this.workDesc = workDesc;
+		this.manHrs = manHrs;
+		this.workBeginDtTime = workBeginDtTime;
 		this.orgDelivery = orgDelivery;
 		this.orgCity = orgCity;
 		this.orgState = orgState;
@@ -32,43 +32,43 @@ public class VolunteerCSV {
 	}
 
 	public String getOrgName() {
-		return OrgName;
+		return orgName;
 	}
 
 	public void setOrgName(String orgName) {
-		OrgName = orgName;
+		orgName = orgName;
 	}
 
 	public String getOrgCategory() {
-		return OrgCategory;
+		return orgCategory;
 	}
 
 	public void setOrgCategory(String orgCategory) {
-		OrgCategory = orgCategory;
+		orgCategory = orgCategory;
 	}
 
 	public String getWorkDesc() {
-		return WorkDesc;
+		return workDesc;
 	}
 
 	public void setWorkDesc(String workDesc) {
-		WorkDesc = workDesc;
+		workDesc = workDesc;
 	}
 
 	public String getManHrs() {
-		return ManHrs;
+		return manHrs;
 	}
 
 	public void setManHrs(String manHrs) {
-		ManHrs = manHrs;
+		manHrs = manHrs;
 	}
 
 	public String getWorkBeginDtTime() {
-		return WorkBeginDtTime;
+		return workBeginDtTime;
 	}
 
 	public void setWorkBeginDtTime(String workBeginDtTime) {
-		WorkBeginDtTime = workBeginDtTime;
+		workBeginDtTime = workBeginDtTime;
 	}
 
 	public String getOrgDelivery() {
@@ -121,9 +121,9 @@ public class VolunteerCSV {
 
 	@Override
 	public String toString() {
-		return "VolunteerCSV [OrgName=" + OrgName + ", OrgCategory="
-				+ OrgCategory + ", WorkDesc=" + WorkDesc + ", ManHrs=" + ManHrs
-				+ ", WorkBeginDtTime=" + WorkBeginDtTime + ", orgDelivery="
+		return "VolunteerCSV [OrgName=" + orgName + ", OrgCategory="
+				+ orgCategory + ", WorkDesc=" + workDesc + ", ManHrs=" + manHrs
+				+ ", WorkBeginDtTime=" + workBeginDtTime + ", orgDelivery="
 				+ orgDelivery + ", orgCity=" + orgCity + ", orgState="
 				+ orgState + ", orgCountry=" + orgCountry + ", orgzip="
 				+ orgzip + ", orgPhone=" + orgPhone + "]";

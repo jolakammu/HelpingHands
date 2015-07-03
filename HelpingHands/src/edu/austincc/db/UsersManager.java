@@ -35,7 +35,7 @@ public class UsersManager {
 			connection = ds.getConnection();
 
 			PreparedStatement ps = connection
-					.prepareStatement("select USER_ID,EMAIL_TXT,NAME,PASSWORD_EXPIRY_DT,ROLE_CD, USER_TYP from SE_USER where EMAIL_TXT = ? and PASSWORD_TXT = ?");
+					.prepareStatement("select USER_ID,EMAIL_TXT,PASSWORD_TXT,SALT, NAME,PASSWORD_EXPIRY_DT,ROLE_CD, USER_TYP from SE_USER where EMAIL_TXT = ? and PASSWORD_TXT = ?");
 			ps.setString(1, email);
 			ps.setString(2, password);
 			ResultSet resultSet = ps.executeQuery();
@@ -45,6 +45,8 @@ public class UsersManager {
 				validatedUser = new User(resultSet.getInt("USER_ID"),
 						resultSet.getString("EMAIL_TXT"),
 						resultSet.getString("NAME"),
+						resultSet.getString("PASSWORD_TXT"),
+						resultSet.getString("SALT"),					
 						resultSet.getString("ROLE_CD"),
 						resultSet.getString("USER_TYP")
 
@@ -70,7 +72,7 @@ public class UsersManager {
 			connection = ds.getConnection();
 
 			PreparedStatement ps = connection
-					.prepareStatement("select Distinct USER_ID,EMAIL_TXT,NAME,ROLE_CD,USER_TYP  from SE_USER where EMAIL_TXT = ?");
+					.prepareStatement("select Distinct USER_ID,EMAIL_TXT,PASSWORD_TXT,SALT,NAME,ROLE_CD,USER_TYP  from SE_USER where EMAIL_TXT = ?");
 			ps.setString(1, email);
 			ResultSet resultSet = ps.executeQuery();
 
@@ -80,6 +82,8 @@ public class UsersManager {
 						.getString("USER_ID")),
 						resultSet.getString("EMAIL_TXT"),
 						resultSet.getString("NAME"),
+						resultSet.getString("PASSWORD_TXT"),
+						resultSet.getString("SALT"),
 						resultSet.getString("ROLE_CD"),
 						resultSet.getString("USER_TYP")
 
@@ -114,16 +118,17 @@ public class UsersManager {
 			}
 
 			ps = connection
-					.prepareStatement("insert into app.SE_USER(USER_ID,EMAIL_TXT,NAME,PASSWORD_TXT,PASSWORD_EXPIRY_DT,ROLE_CD,USER_TYP,ADDRESS_ID,ELEC_COMMU_ID) values (?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("insert into app.SE_USER(USER_ID,EMAIL_TXT,NAME,PASSWORD_TXT,SALT,PASSWORD_EXPIRY_DT,ROLE_CD,USER_TYP,ADDRESS_ID,ELEC_COMMU_ID) values (?,?,?,?,?,?,?,?,?,?)");
 			ps.setInt(1, userId);
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getName());
 			ps.setString(4, user.getPassword());
-			ps.setDate(5, new java.sql.Date(user.getPasswordExpiry().getTime()));
-			ps.setString(6, user.getRole());
-			ps.setString(7, user.getType());
-			ps.setInt(8, user.getAddressId());
-			ps.setInt(9, user.getElecCommuId());
+			ps.setString(5, user.getSalt());
+			ps.setDate(6, new java.sql.Date(user.getPasswordExpiry().getTime()));
+			ps.setString(7, user.getRole());
+			ps.setString(8, user.getType());
+			ps.setInt(9, user.getAddressId());
+			ps.setInt(10, user.getElecCommuId());
 
 			ps.executeUpdate();
 			ps.close();

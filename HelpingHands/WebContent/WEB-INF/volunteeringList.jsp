@@ -44,7 +44,7 @@
 				</c:forEach>					  						
 			</table>
 		</c:forEach>
-		<c:if test="${not empty vilMap}">
+		<c:if test="${empty vilMap}">
   			<table class="table">
 				<tr class="active">
 					<th>Organization Name</th>

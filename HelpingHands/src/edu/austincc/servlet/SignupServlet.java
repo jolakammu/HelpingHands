@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ import edu.austincc.domain.Document;
 import edu.austincc.domain.ElecctronicCommunication;
 import edu.austincc.domain.GenCodes;
 import edu.austincc.domain.User;
+import edu.austincc.utils.Owasp;
 
 /**
  * Servlet implementation class SignupServlet
@@ -40,6 +43,7 @@ import edu.austincc.domain.User;
 @MultipartConfig(maxFileSize = 16177215)
 public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static int ITERATION_NUMBER = 1000;
 
 	@Resource(name = "jdbc/DB")
 	DataSource ds;
@@ -81,6 +85,8 @@ public class SignupServlet extends HttpServlet {
 			session.setAttribute("todonate", "");
 			session.setAttribute("tovolunteer", "");
 			session.setAttribute("applyforhelp", "");
+			session.setAttribute("selectCountry", "");
+			session.setAttribute("selectedState", "");
 		}
 		String url = "/WEB-INF/signup.jsp";
 		GenCdManager gCM = new GenCdManager(ds);
@@ -124,6 +130,28 @@ public class SignupServlet extends HttpServlet {
 		String applyforhelp = request.getParameter("applyforhelp");
 		String tovolunteer = request.getParameter("tovolunteer");
 
+		SecureRandom random = null;
+		try {
+			random = SecureRandom.getInstance("SHA1PRNG");
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        // Salt generation 64 bits long
+        byte[] bSalt = new byte[8];
+        random.nextBytes(bSalt);
+        // Digest computation
+        Owasp owasp = new Owasp();
+        byte[] bDigest = null;
+		try {
+			bDigest = owasp.getHash(ITERATION_NUMBER,password,bSalt);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        String sDigest = owasp.byteToBase64(bDigest);
+        String sSalt = owasp.byteToBase64(bSalt);
+		
 		// Password expires in 3 years
 		Calendar cal = Calendar.getInstance();
 		cal.add(cal.YEAR, 3);
@@ -131,6 +159,14 @@ public class SignupServlet extends HttpServlet {
 		// DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
 		Date passwordExpiry = (cal.getTime());
 
+		if (email != null) {
+			
+			if (!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
+				error = "Invalid Email format";
+			}
+		}
+		
+		
 		if (password == null || password1 == null) {
 			error = "Password and Pasword confimation can not be spaces";
 		}
@@ -140,6 +176,10 @@ public class SignupServlet extends HttpServlet {
 			error = "Password and Pasword confimation are not the same";
 		}
 
+		if (phonenumber.length() != 0 && !NumericValidation(phonenumber)) {
+			error = "Invalid Work Phone";
+		}		
+		
 		if (validatedUser == null && error == null) {
 			Address address = new Address(0, delivery, city, state, country,
 					zip);
@@ -149,7 +189,7 @@ public class SignupServlet extends HttpServlet {
 					"PHONE", phonenumber);
 			int elecCommuPhoneId = new ElecCommuManager(ds).addElecCommu(phone);
 
-			User user = new User(0, email, name, password, passwordExpiry,
+			User user = new User(0, email, name, sDigest,sSalt, passwordExpiry,
 					null, type, addressId, elecCommuPhoneId);
 
 			int userId = new UsersManager(ds).addUser(user);
@@ -198,10 +238,21 @@ public class SignupServlet extends HttpServlet {
 			session.setAttribute("todonate", todonate);
 			session.setAttribute("tovolunteer", tovolunteer);
 			session.setAttribute("applyforhelp", applyforhelp);
+			session.setAttribute("selectCountry", country);			
+			session.setAttribute("selectedState", state);
 			showForm(request, response);
 
 		}
 
+	}
+
+	private boolean NumericValidation(String phonenumber) {		
+		try {
+			Long  phonenum = Long.valueOf(phonenumber) ;
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 }

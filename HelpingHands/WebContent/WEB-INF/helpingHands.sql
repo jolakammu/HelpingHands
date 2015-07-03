@@ -190,3 +190,9 @@ select  DOC_ID, FILENAME_TXT,  FORMAT_CD,  FILE_DESC_TXT,  CREATED_BY_TXT, CREAT
 
 
 Select vi.VOLUNTEER_ITEM_ID, vi.ORG_NAME, vi.ORG_CATEGORY, vi.WORK_DESC, vi.MAN_HRS, vi.WORK_BEGIN_DT, vi.ADDRESS_ID, addr.DELIVERY_TXT, addr.city, addr.state_cd, addr.COUNTRY_CD, addr.ZIP_TXT, vi.ELEC_COMMU_ID, ec.ELEC_COMMU_TYP, ec.ELEC_COMMU_NUM from app.HH_VOLUNTEER_ITEMS vi, APP.HH_ADDRESS addr, APP.HH_ELEC_COMMU ec where vi.ADDRESS_ID = addr.ADDRESS_ID and vi.ELEC_COMMU_ID = ec.ELEC_COMMU_ID order by vi.WORK_BEGIN_DT ASC
+
+select * from app.se_user
+
+alter table app.se_user add column salt  varchar(32);
+
+alter table app.se_user alter column salt set data type varchar(32);

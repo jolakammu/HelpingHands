@@ -21,7 +21,7 @@
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-4">
-    	<input type="email" class="form-control" id="email"  name="email" placeholder="Email" maxlength="254" required="required" value="${email}">
+    	<input type="email" class="form-control" id="email"  name="email" placeholder="Email" maxlength="254" required="required" value="<c:out value="${email}"/>">
     </div>
   </div>
   <div class="form-group">
@@ -39,19 +39,19 @@
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="required" value="${name}" maxlength="100">
+      <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="required" value="<c:out value="${name}"/>" maxlength="100">
     </div>
   </div>
   <div class="form-group">
     <label for="delivery" class="col-sm-2 control-label">Delivery</label>
     <div class="col-sm-4">
-      <input type="text" class="form-control" id="delivery" name="delivery" placeholder="13031 scofield farms dr" required="required" value="${delivery}" maxlength="50">
+      <input type="text" class="form-control" id="delivery" name="delivery" placeholder="13031 scofield farms dr" required="required" value="<c:out value="${delivery}"/>" maxlength="50">
     </div>
   </div>
   <div class="form-group">
     <label for="city" class="col-sm-2 control-label">City</label>
     <div class="col-sm-3">
-      <input type="text" class="form-control" id="city" name="city" placeholder="Austin" required="required" value="${city}" maxlength="32">
+      <input type="text" class="form-control" id="city" name="city" placeholder="Austin" required="required" value="<c:out value="${city}"/>" maxlength="32">
     </div>
   </div>
   <div class="form-group">
@@ -59,7 +59,7 @@
 	<div class="col-sm-2">
     	<select name="state" id="state" class="form-control">
     		<c:forEach var="state" items="${stateList}">
-        		<option value="${state.genCd}" ${country.state == state ? 'selected="selected"' : ''}>${state.name}</option>
+        		<option value="${state.genCd}" ${state.genCd == selectedState ? 'selected="selected"' : ''}>${state.name}</option>
     		</c:forEach>
 		</select>
     </div>  
@@ -69,7 +69,7 @@
     <div class="col-sm-2">
     	<select name="country" id="country" class="form-control">
     		<c:forEach var="country" items="${countryList}">
-        		<option value="${country.genCd}" ${country.genCd == country ? 'selected="selected"' : ''}>${country.name}</option>
+        		<option value="${country.genCd}" ${country.genCd == selectCountry ? 'selected="selected"' : ''}>${country.name}</option>
     		</c:forEach>
 		</select>
     </div>
@@ -78,7 +78,7 @@
     <label for="phonenumber" class="col-sm-2 control-label">Work Phone</label>
     <div class="row">
     	<div class="col-xs-2">
-      		<input type="tel" class="form-control" id="phonenumber" name="phonenumber" placeholder="NNNNNNNNNN" value="${phonearea}" size="10" maxlength="10">
+      		<input type="tel" class="form-control" id="phonenumber" name="phonenumber" placeholder="NNNNNNNNNN" value="<c:out value="${phonenumber}"/>" size="10" maxlength="10">
 		</div>      		
     </div>
   </div>
