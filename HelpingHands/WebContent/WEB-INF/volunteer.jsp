@@ -9,7 +9,7 @@
 <sql:setDataSource dataSource="jdbc/DB" />
 
 <c:import url="/WEB-INF/header.jsp"></c:import>
-<title>Helping Hands</title>
+<title>HelpingHands</title>
 </head>
 <body bgcolor="lightgrey">
 	 <c:import url="/WEB-INF/navbar.jsp"></c:import>

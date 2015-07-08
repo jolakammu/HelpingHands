@@ -19,11 +19,12 @@ public class AddressManager {
 
 	public int getAddress(Address address) {
 		// TODO Auto-generated method stub
+		Connection connection = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Integer addressId = 0;
 		try {
-			Connection connection;
+			
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select Coalesce(ADDRESS_ID,0) as ADDRESS_ID from app.HH_ADDRESS where DELIVERY_TXT = ? and CITY = ? and STATE_CD = ? and COUNTRY_CD = ?");
@@ -36,12 +37,12 @@ public class AddressManager {
 			while (resultSet.next()) {
 				addressId = resultSet.getInt("ADDRESS_ID");
 
-			}
-			ps.close();
-			connection.close();
+			}			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 
 		return addressId;
@@ -50,10 +51,13 @@ public class AddressManager {
 	public int addAddress(Address address) {
 		// TODO Auto-generated method stub
 		PreparedStatement ps = null;
+		Connection connection = null;
 		ResultSet rs = null;
+		
 		Integer addressId = 0;
+		
 		try {
-			Connection connection;
+			
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select Coalesce(Max(ADDRESS_ID),0) + 1 as ADDRESS_ID from app.HH_ADDRESS");
@@ -78,6 +82,8 @@ public class AddressManager {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 
 		return addressId;
@@ -86,8 +92,8 @@ public class AddressManager {
 	public void updateAddress(Address address) {
 		// TODO Auto-generated method stub
 		PreparedStatement ps = null;
+		Connection connection = null;
 		try {
-			Connection connection;
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("Update app.HH_ADDRESS set DELIVERY_TXT=?, CITY=?, STATE_CD=?, COUNTRY_CD=?, ZIP_TXT=? where Address_id =?");
@@ -99,13 +105,44 @@ public class AddressManager {
 			ps.setInt(6, address.getAddressId());
 
 			ps.executeUpdate();
-			ps.close();
-			connection.close();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(ps, null, connection);;
 		}
 
+	}
+
+	private void close(PreparedStatement ps, ResultSet rs, Connection connection) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		if (ps != null) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 }

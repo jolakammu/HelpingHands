@@ -25,9 +25,10 @@ public class VolunteerItemsManager {
 		// TODO Auto-generated method stub
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection connection = null;
 		Integer volunteertemId = 0;
 		try {
-			Connection connection;
+
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select Coalesce(Max(VOLUNTEER_ITEM_ID),0) + 1 as VOLUNTEER_ITEM_ID from app.HH_VOLUNTEER_ITEMS");
@@ -44,18 +45,16 @@ public class VolunteerItemsManager {
 			ps.setString(3, volunteerItems.getOrgCategory());
 			ps.setString(4, volunteerItems.getWorkDesc());
 			ps.setLong(5, volunteerItems.getManHrs());
-			ps.setDate(6, new java.sql.Date(volunteerItems.getWorkBeginDtTime()
-					.getTime()));
+			ps.setDate(6, new java.sql.Date(volunteerItems.getWorkBeginDtTime().getTime()));
 			ps.setInt(7, volunteerItems.getAddressId());
 			ps.setInt(8, volunteerItems.getElecCommuId());
 
 			ps.executeUpdate();
-			ps.close();
-			connection.close();
-			rs.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(ps, rs, connection);;
 		}
 
 		return volunteertemId;
@@ -67,9 +66,9 @@ public class VolunteerItemsManager {
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
+		Connection connection = null;
 		try {
-			Connection connection;
+
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("Select vi.VOLUNTEER_ITEM_ID, vi.ORG_NAME, vi.ORG_CATEGORY, vi.WORK_DESC, vi.MAN_HRS, vi.WORK_BEGIN_DT, vi.ADDRESS_ID, addr.DELIVERY_TXT, addr.city, addr.state_cd, addr.COUNTRY_CD, addr.ZIP_TXT, vi.ELEC_COMMU_ID, ec.ELEC_COMMU_TYP, ec.ELEC_COMMU_NUM from app.HH_VOLUNTEER_ITEMS vi, APP.HH_ADDRESS addr, APP.HH_ELEC_COMMU ec where vi.ADDRESS_ID = addr.ADDRESS_ID and vi.ELEC_COMMU_ID = ec.ELEC_COMMU_ID order by vi.WORK_BEGIN_DT ASC");
@@ -91,16 +90,64 @@ public class VolunteerItemsManager {
 								.getInt("ADDRESS_ID"), rs
 								.getInt("ELEC_COMMU_ID"), address, elecCommu));
 			}
-			ps.close();
-			rs.close();
-			connection.close();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 
 		return vilArray;
+	}
+
+	public void deleteVolunteerItem(int volunteerItemId) {
+		PreparedStatement ps = null;
+		Connection connection = null;
+
+		try {
+
+			connection = ds.getConnection();
+
+			ps = connection
+					.prepareStatement("Delete from  app.HH_VOLUNTEER_ITEMS where VOLUNTEER_ITEM_ID = ?");
+			ps.setInt(1, volunteerItemId);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(ps, null, connection);
+		}
 
 	}
 
+	private void close(PreparedStatement ps, ResultSet rs, Connection connection) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		if (ps != null) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
 }

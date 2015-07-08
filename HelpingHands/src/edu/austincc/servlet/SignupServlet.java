@@ -39,7 +39,7 @@ import edu.austincc.utils.Owasp;
 /**
  * Servlet implementation class SignupServlet
  */
-@WebServlet({ "/SignupServlet", "/signup" })
+@WebServlet("/signup")
 @MultipartConfig(maxFileSize = 16177215)
 public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -93,7 +93,7 @@ public class SignupServlet extends HttpServlet {
 		String country = "COUNTRY";
 		ArrayList<GenCodes> countryList = gCM.getGenCodes(country);
 		request.setAttribute("countryList", countryList);
-		request.setAttribute("servlet", "SignupServlet");
+		request.setAttribute("servlet", "signup");
 
 		String state = "STATES";
 		ArrayList<GenCodes> stateList = gCM.getGenCodes(state);
@@ -203,7 +203,7 @@ public class SignupServlet extends HttpServlet {
 				String userName = (String) session.getAttribute("userName");
 				String parentTableName = "SE_USER";
 				boolean success = false;
-
+				/*	
 				InputStream inputStream = null; // input stream of the upload
 												// file
 				Part file = request.getPart("filename");
@@ -218,6 +218,7 @@ public class SignupServlet extends HttpServlet {
 					success = new Documentmanager(ds).addDocuemnt(document,
 							inputStream);
 				}
+				*/
 				response.sendRedirect("index.jsp?signupSuccess=Y");
 			}
 		} else {

@@ -65,7 +65,7 @@ public class LoadVolunteerItemsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String url = "/WEB-INF/volunteerCSV.jsp";
+		String url = "/VolunteeringListServlet";
 
 		Part file = request.getPart("filename");
 		InputStream fileasInsputStream = file.getInputStream();
@@ -97,10 +97,12 @@ public class LoadVolunteerItemsServlet extends HttpServlet {
 
 			// Create the Volunteering Opportunities
 
-			DateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
-			Date workDate;
+			SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd");
+			String strWorkDate = volunteerCSV.getWorkBeginDtTime();
+			Date workDate = null;
+
 			try {
-				workDate = formatter.parse(volunteerCSV.getWorkBeginDtTime());
+				workDate = format.parse(strWorkDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				workDate = null;

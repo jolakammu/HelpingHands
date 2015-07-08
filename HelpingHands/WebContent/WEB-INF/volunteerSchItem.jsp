@@ -9,7 +9,7 @@
 <sql:setDataSource dataSource="jdbc/DB" />
 
 <c:import url="/WEB-INF/header.jsp"></c:import>
-<title>Helping Hands</title>
+<title>HelpingHands</title>
 </head>
 <body bgcolor="lightgrey">
 	<c:import url="/WEB-INF/navbar.jsp"></c:import> 	
@@ -24,20 +24,20 @@
   			</tr>
 			<!-- On rows -->
 			
-			<tr>
-				<th>&nbsp;</th>
-				<th>Organization Name</th>
-				<th>Category</th>
-				<th>Address</th>
-				<th>Phone</th>
-				<th>Start Date & Time</th>
-				<th>Scheduled hrs.</th>
+			<tr>		
+				<th width="7%">&nbsp;</th>
+				<th width="20%">Organization Name</th>
+				<th width="10%">Category</th>
+				<th width="20%">Address</th>
+				<th width="10%">Phone</th>
+				<th width="10%">Start Date & Time</th>
+				<th width="10%">Scheduled hrs.</th>
 			</tr>
 			<!-- On cells (`td` or `th`) -->
 				<c:forEach var="vil" items="${vsilMap.value}">
 					<tr>
   						<td><a href="DeleteVolunteeringSchItem?volunteerSchItemId=${vil.volunteerSchItemId}"><img src="images/delete.jpg" border="0" height="20px" width="20px"></a></td>
-  						<td>${vil.volunteerItems.orgName} ${vil.volunteerSchItemId}</td>
+  						<td>${vil.volunteerItems.orgName}</td>
 	  					<td>${vil.volunteerItems.orgCategory}</td>
   						<td>${vil.volunteerItems.address.delivery} ${vil.volunteerItems.address.city} ${vil.volunteerItems.address.state} ${vil.volunteerItems.address.country} ${vil.volunteerItems.address.zip}</td>
   						<td>${vil.volunteerItems.elecCommu.elecCommuNum}</td>
@@ -74,15 +74,15 @@
   				<th>${vilMap.key.yearNum} ${vilMap.key.monthName}</th>
   			</tr>
 			<tr  class="active">
-				<th>Organization Name</th>
-				<th>Category</th>
-				<th>Address</th>
-				<th>Phone</th>
-				<th>Start Date & Time</th>
-				<th>Needed hrs.</th>
-				<th>Filled hrs.</th>
-				<th>Available hrs.</th>
-				<th>Select. Hrs</th>
+				<th width="20%">Organization Name</th>
+				<th width="10%">Category</th>
+				<th width="20%">Address</th>
+				<th width="10%">Phone</th>
+				<th width="10%">Start Date & Time</th>
+				<th width="10%">Needed hrs.</th>
+				<th width="10%">Filled hrs.</th>
+				<th width="10%">Available hrs.</th>
+				<th width="10%">Select. Hrs</th>
 			</tr>
 					<c:forEach var="vil" items="${vilMap.value}">
 						<tr>

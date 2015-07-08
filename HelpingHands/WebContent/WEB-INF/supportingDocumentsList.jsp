@@ -8,7 +8,7 @@
 <sql:setDataSource dataSource="jdbc/DB" />
 
 <c:import url="/WEB-INF/header.jsp"></c:import>
-<title>Helping Hands</title>
+<title>HelpingHands</title>
 </head>
 
 <body bgcolor="lightgrey">
@@ -21,7 +21,7 @@
   				<div class="alert alert-danger" role="alert">${error}</div>
   			</c:if>	
   			<div class="form-group">
-    			<label for="filename" class="col-sm-2 control-label">Upload</label>
+    			<label for="filename" class="col-sm-2 control-label">Upload<span style="color: red;">*</span></label>
     			<div class="col-sm-10">
       				<input type="file" class="form-control" id="filename"  name="filename" placeholder="choose file" maxlength="254" required="required" title="Select a File">
     			</div>
@@ -45,25 +45,23 @@
 				</tr>
   					<tr class="active">
   						<th class="col-sm-1">Document Name</th>
-  						<th class="col-sm-1">Description</th>
   						<th class="col-sm-1">Delete</th>
   					</tr>
   					<c:forEach items="${documentArray}"  var="documentArray">
 						<tr class="active">
 							<td><a href="OpenDocumentServlet?docId=${documentArray.docId}">${documentArray.fileName}</a>  </td>
-							<td>${documentArray.fileDesc}</td>
-							<td><input type="checkbox" name="delete" value=""></td>
+							<td><a href="DeleteDocumentServlet?docId=${documentArray.docId}"><img src="images/delete.jpg" border="0" height="20px" width="20px"></a></td>
 						</tr>
-					</c:forEach>												
+					</c:forEach>		
+					<c:if test="${empty documentArray}">
+						<tr class="active">
+							<td colspan="3">No supporting Documents available</td>
+						</tr>	
+					</c:if>										
 				</table>
 			</div>
 		</div>
-		<div class="form-group">
-    		<div class="col-md-4 col-md-offset-5">
-				<input type="submit" value="Save" id="Save" name="Save" class="btn btn-default">
-				<input type="reset"  value="Clear" id="Clear" name="Clear" class="btn btn-default">
-    		</div>
-  		</div>			
 	</form>
+	<span style="color: red;">*</span>
 </body>
 </html>

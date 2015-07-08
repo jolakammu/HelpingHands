@@ -20,31 +20,62 @@ public class GenCdManager {
 
 	public ArrayList<GenCodes> getGenCodes(String genCdTyp) {
 		ArrayList<GenCodes> genCodes = new ArrayList<GenCodes>();
-		try {
-			Connection connection;
-			connection = ds.getConnection();
-			ResultSet resultSet = null;
-			PreparedStatement ps = null;
+		Connection connection = null;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
 
+		try {
+			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select distinct GEN_CD_TXT, GEN_CD_NAME from HH_GEN_CD cd, HH_GEN_CD_TYP cdtyp where cdtyp.GEN_CD_TYP_ID = cd.GEN_CD_TYP_ID and cdtyp.GEN_CD_TYP_NAME = ? order by GEN_CD_NAME asc");
 			ps.setString(1, genCdTyp);
-			resultSet = ps.executeQuery();
+			rs = ps.executeQuery();
 
-			while (resultSet.next()) {
+			while (rs.next()) {
 
-				genCodes.add(new GenCodes(resultSet.getString("GEN_CD_TXT"),
-						resultSet.getString("GEN_CD_NAME")));
+				genCodes.add(new GenCodes(rs.getString("GEN_CD_TXT"),
+						rs.getString("GEN_CD_NAME")));
 
 			}
 
-			resultSet.close();
-			ps.close();
-			connection.close();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 		return genCodes;
 	}
+
+	private void close(PreparedStatement ps, ResultSet rs, Connection connection) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		if (ps != null) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
+
 }

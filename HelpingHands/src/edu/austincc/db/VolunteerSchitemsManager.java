@@ -144,10 +144,11 @@ public class VolunteerSchitemsManager {
 
 			connection = ds.getConnection();
 			ps = connection
-					.prepareStatement("Update  APP.HH_VOLUNTEER_SCH_ITEMS set SIGNED_MAN_HRS =  ? where VOLUNTEER_SCH_ITEM_ID = ?");
+					.prepareStatement("Update APP.HH_VOLUNTEER_SCH_ITEMS set SIGNED_MAN_HRS =  ? where VOLUNTEER_SCH_ITEM_ID = ?");
 			ps.setInt(1, volunteerSchItemId);
 			ps.setInt(2, signedHrs);
 			ps.executeUpdate();
+			connection.commit();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -156,6 +157,12 @@ public class VolunteerSchitemsManager {
 		}
 
 		return volunteerSchItemId;
+	}
+
+	public int updateVolunteeringItemSch(int volunteerSchItemId, int signedHrs , int userId, int volunteerItemId) {
+
+		deleteVolunteeringItemSch(volunteerSchItemId);
+		return volunteerSchItemId  = addVolunteeringItemSch (userId, volunteerItemId, signedHrs);
 	}
 
 	public void deleteVolunteeringItemSch(int volunteerSchItemId) {
@@ -185,9 +192,9 @@ public class VolunteerSchitemsManager {
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection connection = null;
 
 		try {
-			Connection connection;
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("Select vi.VOLUNTEER_ITEM_ID, vi.ORG_NAME, vi.ORG_CATEGORY, vi.WORK_DESC, vi.MAN_HRS, vi.WORK_BEGIN_DT, vi.ADDRESS_ID, addr.DELIVERY_TXT, addr.city, addr.state_cd, addr.COUNTRY_CD, addr.ZIP_TXT, vi.ELEC_COMMU_ID, ec.ELEC_COMMU_TYP, ec.ELEC_COMMU_NUM, vsi.VOLUNTEER_SCH_ITEM_ID,vsi.USER_ID,vsi.VOLUNTEER_ITEM_ID,vsi.SIGNED_MAN_HRS from app.HH_VOLUNTEER_ITEMS vi, APP.HH_ADDRESS addr, APP.HH_ELEC_COMMU ec , APP.HH_VOLUNTEER_SCH_ITEMS vsi where vi.ADDRESS_ID = addr.ADDRESS_ID  and vi.ELEC_COMMU_ID = ec.ELEC_COMMU_ID and vi.VOLUNTEER_ITEM_ID = vsi.VOLUNTEER_ITEM_ID and vsi.user_id = ? order by vi.WORK_BEGIN_DT asc");
@@ -214,12 +221,11 @@ public class VolunteerSchitemsManager {
 						.getInt("VOLUNTEER_SCH_ITEM_ID"), rs
 						.getInt("SIGNED_MAN_HRS"), user, volunteerItems));
 			}
-			ps.close();
-			rs.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);
 		}
 
 		return vsilArray;

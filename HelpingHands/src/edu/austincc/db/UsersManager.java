@@ -29,36 +29,36 @@ public class UsersManager {
 	public User getUser(String email, String password) {
 
 		User validatedUser = null;
-
+		PreparedStatement ps = null;
+		Connection connection = null;
+		ResultSet rs = null;
 		try {
-			Connection connection;
 			connection = ds.getConnection();
 
-			PreparedStatement ps = connection
+			ps = connection
 					.prepareStatement("select USER_ID,EMAIL_TXT,PASSWORD_TXT,SALT, NAME,PASSWORD_EXPIRY_DT,ROLE_CD, USER_TYP from SE_USER where EMAIL_TXT = ? and PASSWORD_TXT = ?");
 			ps.setString(1, email);
 			ps.setString(2, password);
-			ResultSet resultSet = ps.executeQuery();
+			rs = ps.executeQuery();
 
-			while (resultSet.next()) {
+			while (rs.next()) {
 
-				validatedUser = new User(resultSet.getInt("USER_ID"),
-						resultSet.getString("EMAIL_TXT"),
-						resultSet.getString("NAME"),
-						resultSet.getString("PASSWORD_TXT"),
-						resultSet.getString("SALT"),					
-						resultSet.getString("ROLE_CD"),
-						resultSet.getString("USER_TYP")
+				validatedUser = new User(rs.getInt("USER_ID"),
+						rs.getString("EMAIL_TXT"),
+						rs.getString("NAME"),
+						rs.getString("PASSWORD_TXT"),
+						rs.getString("SALT"),					
+						rs.getString("ROLE_CD"),
+						rs.getString("USER_TYP")
 
 				);
 			}
 
-			resultSet.close();
-			ps.close();
-			connection.close();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 		return validatedUser;
 	}
@@ -66,36 +66,35 @@ public class UsersManager {
 	public User getUser(String email) {
 
 		User validateUser = null;
-
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
 		try {
-			Connection connection;
 			connection = ds.getConnection();
-
-			PreparedStatement ps = connection
+			ps = connection
 					.prepareStatement("select Distinct USER_ID,EMAIL_TXT,PASSWORD_TXT,SALT,NAME,ROLE_CD,USER_TYP  from SE_USER where EMAIL_TXT = ?");
 			ps.setString(1, email);
-			ResultSet resultSet = ps.executeQuery();
+			rs = ps.executeQuery();
 
-			while (resultSet.next()) {
+			while (rs.next()) {
 
-				validateUser = new User(Integer.parseInt(resultSet
+				validateUser = new User(Integer.parseInt(rs
 						.getString("USER_ID")),
-						resultSet.getString("EMAIL_TXT"),
-						resultSet.getString("NAME"),
-						resultSet.getString("PASSWORD_TXT"),
-						resultSet.getString("SALT"),
-						resultSet.getString("ROLE_CD"),
-						resultSet.getString("USER_TYP")
+						rs.getString("EMAIL_TXT"),
+						rs.getString("NAME"),
+						rs.getString("PASSWORD_TXT"),
+						rs.getString("SALT"),
+						rs.getString("ROLE_CD"),
+						rs.getString("USER_TYP")
 
 				);
 			}
 
-			resultSet.close();
-			ps.close();
-			connection.close();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 
 		return validateUser;
@@ -105,9 +104,9 @@ public class UsersManager {
 		// TODO Auto-generated method stub
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection connection = null;
 		int userId = 0;
 		try {
-			Connection connection;
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select Coalesce(Max(USER_ID),0) + 1  as USER_ID from app.SE_USER");
@@ -131,11 +130,12 @@ public class UsersManager {
 			ps.setInt(10, user.getElecCommuId());
 
 			ps.executeUpdate();
-			ps.close();
-			connection.close();
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, null, connection);;
 		}
 
 		return userId;
@@ -145,8 +145,9 @@ public class UsersManager {
 		// TODO Auto-generated method stub
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection connection = null;
 		try {
-			Connection connection;
+			
 			connection = ds.getConnection();
 			Date date = new java.sql.Date(3000 - 12 - 31);
 
@@ -161,13 +162,45 @@ public class UsersManager {
 			ps.setInt(7, user.getAddressId());
 			ps.setInt(8, user.getElecCommuId());
 			ps.setInt(9, user.getUserId());
+			
 			ps.executeUpdate();
-			ps.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, null, connection);;
 		}
 	}
+	private void close(PreparedStatement ps, ResultSet rs, Connection connection) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		if (ps != null) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
 
 }

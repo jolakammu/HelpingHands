@@ -83,9 +83,15 @@ public class CreateVolunteeringItemSch extends HttpServlet {
 						int volunteerSchItemId = new VolunteerSchitemsManager(
 								ds).getVolunteerSchItemId(userId,
 								volunteeringItemId);
+						/*
 						volunteerSchItemId = new VolunteerSchitemsManager(ds)
 								.updateVolunteeringItemSch(volunteerSchItemId,
 										newSignedHrs + filledHrs);
+										*/
+						volunteerSchItemId = new VolunteerSchitemsManager(ds)
+						.updateVolunteeringItemSch(volunteerSchItemId,
+								newSignedHrs + filledHrs, userId, volunteeringItemId);
+
 					}
 
 				}

@@ -9,7 +9,7 @@
 <sql:setDataSource dataSource="jdbc/DB" />
 
 <c:import url="/WEB-INF/header.jsp"></c:import>
-<title>Helping Hands</title>
+<title>HelpingHands</title>
 </head>
 <body bgcolor="lightgrey">
 <c:import url="/WEB-INF/navbar.jsp"></c:import> 
@@ -19,7 +19,7 @@
   	<div class="alert alert-danger" role="alert">${error}</div>
   </c:if>	
   <div class="form-group">
-    <label for="filename" class="col-sm-2 control-label">File input</label>
+    <label for="filename" class="col-sm-2 control-label">File input <span style="color: red;">*</span></label>
     <div class="col-sm-4">
       <input type="file" class="form-control" id="filename"  name="filename" placeholder="choose file" maxlength="254" required="required" title="Select a File">
     </div>
@@ -31,6 +31,7 @@
     </div>
   </div>
 </form>
+<span style="color: red;">*</span> mandatory
 <myTags:Footer/>
 </body>
 </html>

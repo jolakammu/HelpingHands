@@ -101,10 +101,12 @@ select * from app.HH_ELEC_COMMU
 
 select * from app.HH_VOLUNTEER_ITEMS
 
-
-truncate table app.HH_VOLUNTEER_ITEMS
-truncate table app.HH_ELEC_COMMU
-truncate table app.HH_ADDRESS
+truncate table app.se_user;
+truncate table app.hh_doc;
+truncate table app.HH_VOLUNTEER_ITEMS;
+truncate table app.HH_VOLUNTEER_SCH_ITEMS;
+truncate table app.HH_ELEC_COMMU;
+truncate table app.HH_ADDRESS;
 
 
 
@@ -196,3 +198,6 @@ select * from app.se_user
 alter table app.se_user add column salt  varchar(32);
 
 alter table app.se_user alter column salt set data type varchar(32);
+
+
+Update APP.HH_VOLUNTEER_SCH_ITEMS set SIGNED_MAN_HRS =  8 where VOLUNTEER_SCH_ITEM_ID = 1

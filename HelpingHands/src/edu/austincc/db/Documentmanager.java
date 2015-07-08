@@ -29,9 +29,9 @@ public class Documentmanager {
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
-		try {
-			Connection connection;
+		Connection connection = null;
+		
+		try {			
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select  DATA from app.hh_doc where DOC_ID = ?");
@@ -41,12 +41,11 @@ public class Documentmanager {
 				data = rs.getBlob("DATA");
 				fileData = data.getBytes(1, (int) data.length());
 			}
-			ps.close();
-			rs.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 		return fileData;
 	}
@@ -58,9 +57,8 @@ public class Documentmanager {
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
+		Connection connection = null;
 		try {
-			Connection connection;
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select  DOC_ID, FILENAME_TXT,  FORMAT_CD,  FILE_DESC_TXT,  CREATED_BY_TXT, CREATE_DT  from app.hh_doc where DOC_ID = ?");
@@ -73,12 +71,11 @@ public class Documentmanager {
 						rs.getString("FILE_DESC_TXT"),
 						rs.getString("CREATED_BY_TXT"), rs.getDate("CREATE_DT"));
 			}
-			ps.close();
-			rs.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 		return document;
 	}
@@ -90,9 +87,9 @@ public class Documentmanager {
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection connection = null;
 
 		try {
-			Connection connection;
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select  DOC_ID, FILENAME_TXT,  FORMAT_CD,  FILE_DESC_TXT,  CREATED_BY_TXT, CREATE_DT  from app.hh_doc where PARENT_TABLE_ID = ? and PARENT_TABLE_NAME = ?");
@@ -106,12 +103,11 @@ public class Documentmanager {
 								.getString("CREATED_BY_TXT"), rs
 								.getDate("CREATE_DT")));
 			}
-			ps.close();
-			rs.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 
 		return documentArray;
@@ -121,10 +117,10 @@ public class Documentmanager {
 
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection connection = null;
 		int docId = 0;
 
 		try {
-			Connection connection;
 			connection = ds.getConnection();
 			ps = connection
 					.prepareStatement("select Coalesce(Max(DOC_ID),0) + 1  as DOC_ID from app.HH_DOC");
@@ -146,14 +142,69 @@ public class Documentmanager {
 			ps.setBinaryStream(9, inputStream);
 
 			ps.executeUpdate();
-			ps.close();
-			rs.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(ps, rs, connection);;
 		}
 
 		return false;
 	}
+
+	public boolean removeDocuemnt(int docId) {
+
+		PreparedStatement ps = null;
+		Connection connection = null;
+		
+		boolean success = false;
+
+		try {
+			connection = ds.getConnection();
+			ps = connection
+					.prepareStatement("Delete from app.HH_DOC where DOC_ID = ?");
+			ps.setInt(1, docId);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(ps, null, connection);;
+		}
+
+		return true;
+	}
+
+	private void close(PreparedStatement ps, ResultSet rs, Connection connection) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		if (ps != null) {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
 }

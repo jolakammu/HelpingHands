@@ -24,7 +24,7 @@ import edu.austincc.utils.Owasp;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet({ "/LoginServlet", "/login" })
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static int ITERATION_NUMBER = 1000;
@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("error", "");
 		}
 		String url = "/WEB-INF/signin.jsp";
-		request.setAttribute("servlet", "LoginServlet");
+		request.setAttribute("servlet", "login");
 		request.getRequestDispatcher(url).forward(request, response);
 
 	}

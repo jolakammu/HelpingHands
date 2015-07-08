@@ -41,6 +41,12 @@ public class SupportingDocumentServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String url = "/WEB-INF/supportingDocumentsList.jsp";
+		String nav = request.getParameter("nav");
+		if (nav != null && nav.equals("Y")) {
+			HttpSession session = request.getSession();
+			session.setAttribute("error", "");
+		}
+
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("userId");
 
